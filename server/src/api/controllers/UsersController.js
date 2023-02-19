@@ -53,7 +53,7 @@ class UsersController{
         }
     }
 
-    async updateUserPassword(request, response){
+    async updatePassword(request, response){
         try{
             // Get and verify if request is not empty
             const { oldPassword, newPassword} = request.body
