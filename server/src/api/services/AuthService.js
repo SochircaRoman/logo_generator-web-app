@@ -51,35 +51,35 @@ class AuthService {
 
     async login(username, password) {
 
-      // Get user by username
-      const existingUser = await User.findOne({ username: username })
-      if (!existingUser) {
-        throw new Error(`User with username '${username}' not be found`);
-      }
+        // Get user by username
+        const existingUser = await User.findOne({ username: username })
+        if (!existingUser) {
+          throw new Error(`User with username '${username}' not be found`);
+        }
 
-      // Check if actual password is correct
-      const correctPassword = await bcrypt.compare(password, existingUser.password);
-      if (!correctPassword) {
-        throw new Error("Password is not correct")
-      }
+        // Check if actual password is correct
+        const correctPassword = await bcrypt.compare(password, existingUser.password);
+        if (!correctPassword) {
+          throw new Error("Password is not correct")
+        }
 
-      // Create access token for logged user
-      const accessToken = jwt.sign(
-        {
-          "username": username,
-          "adminRoot": existingUser.adminRoot
-        },
-        process.env.JWT_ACCESS_SECRET,
-        {expiresIn: '24h'}
-      );
+        // Create access token for logged user
+        const accessToken = jwt.sign(
+          {
+            "username": username,
+            "adminRoot": existingUser.adminRoot
+          },
+          process.env.JWT_ACCESS_SECRET,
+          {expiresIn: '24h'}
+        );
 
-      // Check if accessToken is generated
-      if (!accessToken) {
-        throw new Error("Access Token generate error")
-      }
+        // Check if accessToken is generated
+        if (!accessToken) {
+          throw new Error("Access Token generate error")
+        }
 
-      // If all ok return accessToken and the existingUser
-      return {existingUser, ...accessToken}
+        // If all ok return accessToken and the existingUser
+        return {existingUser, ...accessToken}
     }
 
 }
