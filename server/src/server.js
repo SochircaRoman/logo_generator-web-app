@@ -1,8 +1,7 @@
-require("dotenv").config();
+require("dotenv").config({path: "../.env"});
 
 const express = require("express");
 const cors = require("cors");
-
 const app = express();
 
 const corsOptions = {
@@ -16,6 +15,7 @@ app.use(express.json());
 
 const startServer = async () => {
   try {
+      require('./database').init()
       app.listen(process.env.SERVER_PORT, process.env.SERVER_URL, () => {
         console.log(`Server started on PORT = ${process.env.SERVER_PORT}`)
       })
@@ -23,5 +23,4 @@ const startServer = async () => {
       console.log(error)
   }
 };
-
 startServer();
