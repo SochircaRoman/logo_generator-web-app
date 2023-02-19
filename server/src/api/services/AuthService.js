@@ -1,6 +1,4 @@
 const User = require("../../database/models/User");
-//const MailService = require('../services/MailService');
-const TokenService = require('../services/TokenService');
 
 const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
