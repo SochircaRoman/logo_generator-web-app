@@ -2,7 +2,6 @@
   
   <main class="main">
     
-
       <section class="home__top">
         <div class="wrapper">
           <h1 class="home__top-text">Create your own logo using neural networks</h1>
@@ -21,19 +20,23 @@
         <div class="wrapper">
           <logos-example :categories="categories"></logos-example>
         </div>
+        <div class="home__btn">
+          <btn-item btnName="Generate logo"></btn-item>
+        </div>
       </section>
       
-
   </main>  
 
 </template>
 
 <script>
 import LogosExample from '../components/Home/LogosExample.vue';
+import BtnItem from '../components/UI/btnItem.vue';
 
 export default {
   components: {
     LogosExample,
+    BtnItem
   },
   data() {
     return {
@@ -130,5 +133,12 @@ export default {
 
 .home__down {
   margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.home__btn {
+  padding-top: 50px;
+  margin: 0 auto;
+  width: 200px;
 }
 </style>
