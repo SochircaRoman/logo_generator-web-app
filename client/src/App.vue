@@ -2,20 +2,24 @@
 
     <nav-bar v-if="currentRouteName != 'load'"></nav-bar>
 
-  <div>
+    <div>
     <router-view />
-  </div>
+    </div>
+
+    <footer-bar v-if="currentRouteName != 'load'"></footer-bar>
 
 </template>
 
 <script>
 import { RouterView } from 'vue-router';
 import NavBar from './components/NavBar.vue';
+import FooterBar from './components/FooterBar.vue';
 
 export default {
   components: {
     RouterView,
-    NavBar
+    NavBar,
+    FooterBar
   },
   computed: {
     currentRouteName() {

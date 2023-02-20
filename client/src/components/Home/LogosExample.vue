@@ -23,7 +23,7 @@
           v-for="(logo, index) in categories[0].logos"
           :key="index"
         >
-          <span><img class="category__img" :src="'../../../categories/' + logo.image" :alt="logo.title"></span>
+          <span><img class="category__img" :src="'/categories/' + logo.image" :alt="logo.title"></span>
         </span>
       </div>
 
@@ -33,7 +33,7 @@
           v-for="(logo, index) in categories[1].logos"
           :key="index"
         >
-          <span><img class="category__img" :src="'../../categories/' + logo.image" :alt="logo.title"></span>
+          <span><img class="category__img" :src="'/categories/' + logo.image" :alt="logo.title"></span>
         </span>
       </div>
 
@@ -43,12 +43,12 @@
           v-for="(logo, index) in categories[2].logos"
           :key="index"
         >
-          <span><img class="category__img" :src="'../../categories/' + logo.image" :alt="logo.title"></span>
+          <span><img class="category__img" :src="'/categories/' + logo.image" :alt="logo.title"></span>
         </span>
       </div>
 
       <div class="example__content-categories" v-else></div>
-
+      
     </div>
   </div>
 
