@@ -1,5 +1,7 @@
 <template>
 
+    <nav-bar v-if="currentRouteName != 'load'"></nav-bar>
+
   <div>
     <router-view />
   </div>
@@ -8,11 +10,18 @@
 
 <script>
 import { RouterView } from 'vue-router';
+import NavBar from './components/NavBar.vue';
 
 export default {
   components: {
     RouterView,
+    NavBar
   },
+  computed: {
+    currentRouteName() {
+      return this.$route.name;
+    },
+  }
 }
 </script>
 
@@ -368,7 +377,7 @@ body {
   font-size: 16px;
   line-height: 1.2;
   font-weight: normal;
-  color: #21243D;
+  color: black;
 }
 .noselect {
   -webkit-user-select: none;
