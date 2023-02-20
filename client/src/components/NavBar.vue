@@ -99,11 +99,11 @@ export default {
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll);
   },
-  //computed: {
-    //currentUser() {
-      //return this.$store.state.auth.user;
-    //}
-  //},
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
+  },
   methods: {
     handleScroll() {
       window.onscroll = () => {
@@ -128,10 +128,10 @@ export default {
     handleRemoveBurger() {
       document.querySelector(".header__nav").classList.remove("header__nav_active");
     },
-    //handleLogout() {
-      //this.$store.dispatch('auth/logout');
-      //this.$router.push('/login');
-    //}
+    handleLogout() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/login');
+    }
   },
 }
 </script>
