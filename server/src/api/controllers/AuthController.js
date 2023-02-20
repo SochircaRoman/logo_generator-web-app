@@ -7,7 +7,7 @@ class AuthController{
 
           // Get the username, password and email values
           const { username, password, email } = request.body.data
-
+          
           // Check if username, password and email is present
           if (!username || !password || !email) {
               if (!username) {
