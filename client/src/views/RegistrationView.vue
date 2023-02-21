@@ -1,46 +1,55 @@
 <template>
-  <div class="wrapper">
-    <Form @submit="handleRegister" :validation-schema="schema">
 
-      <div class="registartion_info">
-				<h1>Registration</h1>
-			</div>
-			
-			<hr>
-      
-      <div class="input_container" v-if="!successful">
+  <main class="register">
+    <section class="register__content">
+      <div class="wrapper">
 
-        <input-item type="text" name="username" placeholder="Enter Username"></input-item>
+        <Form @submit="handleRegister" :validation-schema="schema">
 
-        <input-item type="email" name="email" placeholder="Enter Email"></input-item>
+          <div class="registration__info">
+            <h1 class="registration__title">Registration</h1>
+          </div>
+          
+          <hr>
+          
+          <div class="input_container" v-if="!successful">
 
-        <input-item type="password" name="password" placeholder="Enter Password"></input-item>
+            <input-item type="text" name="username" placeholder="Enter Username"></input-item>
 
-        <input-item type="password" name="confirm" placeholder="Confirm Password"></input-item>
+            <input-item type="email" name="email" placeholder="Enter Email"></input-item>
 
-        <button class="submit_btn" :disabled="loading">
-          <span
-            v-show="loading"
-            class=""
-          ></span>
-          <span>Submit</span>
-        </button>
+            <input-item type="password" name="password" placeholder="Enter Password"></input-item>
+
+            <input-item type="password" name="confirm" placeholder="Confirm Password"></input-item>
+
+            <button class="submit_btn" :disabled="loading">
+              <span
+                v-show="loading"
+                class=""
+              ></span>
+              <span>Submit</span>
+            </button>
+          </div>
+
+          <div class="message" v-if="message">
+            <div :class="successful ? 'message__success' : 'message__alert'">
+              {{ message }}
+            </div>
+          </div>
+
+          <div class="other_info" v-if="!successful">
+            <div class="other_info">
+              <p class="other_info-text">By creating an account you agree to our <a href="#" class="other_info-link">Terms & Privacy</a>.</p>
+            </div>
+          </div>
+
+        </Form>
+
       </div>
+    </section>
+  </main>
 
-      <div class="message" v-if="message">
-        <div :class="successful ? 'message__success' : 'message__alert'">
-          {{ message }}
-        </div>
-      </div>
-
-      <div class="other_info" v-if="!successful">
-        <div class="other_info">
-          <p class="other_info-text">By creating an account you agree to our <a href="#" class="other_info-link">Terms & Privacy</a>.</p>
-        </div>
-      </div>
-
-    </Form>
-  </div>
+  
 </template>
 
 <script>
@@ -104,15 +113,18 @@ export default {
 </script>
 
 <style scoped>
-
+.register__content {
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
 .wrapper {
-  max-width: 25%;
-  margin: 0 auto;
-  margin-top: 65px;
+  max-width: 400px;
 }
 
-.registartion_info {
+.registration__title {
   text-align: center;
+  font-size: 40px;
+  line-height: 60px;
 }
 
 .input_container {
@@ -152,6 +164,11 @@ export default {
 .message__alert {
   color: #f23648;
   text-align: center;
+}
+
+.other_info-text {
+  text-align: center;
+  font-size: 20px;
 }
 
 .other_info-link {

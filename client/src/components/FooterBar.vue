@@ -13,6 +13,10 @@ export default {
 </script>
 
 <style>
+.footer {
+  margin-bottom: 20px;
+}
+
 .footer__wrapper {
   max-width: 320px;
   margin: 0 auto;
@@ -23,6 +27,5 @@ export default {
   font-size: 20px;
   line-height: 21px;
   text-align: center;
-  margin-bottom: 30px;
 }
 </style>
