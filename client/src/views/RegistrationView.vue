@@ -10,7 +10,7 @@
             <h1 class="registration__title">Registration</h1>
           </div>
           
-          <hr>
+          <hr class="registration__line">
           
           <div class="input_container" v-if="!successful">
 
@@ -125,6 +125,10 @@ export default {
   text-align: center;
   font-size: 40px;
   line-height: 60px;
+}
+
+.registration__line {
+  
 }
 
 .input_container {

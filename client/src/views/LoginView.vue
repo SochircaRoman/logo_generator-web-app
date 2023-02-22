@@ -1,48 +1,63 @@
 <template>
-  <div class="wrapper">
 
-    <div v-if="loginStatus" class="succes_popup">
-      <succes-item text="Succes Login!"></succes-item>
-    </div>
+  <main class="login">
+    <section class="login__content">
+      
+      <div class="wrapper">
 
-    <Form v-else @submit="handleLogin" :validation-schema="schema">
-
-      <div class="img_container">
-				<img src="png/avatar.png" alt="Avatar" class="profile_img">
-			</div>
-
-      <div class="input_container">
-
-        <input-item type="text" name="username" placeholder="Enter Username"></input-item>
-        
-        <input-item type="password" name="password" placeholder="Enter Password"></input-item>
-
-        <button class="submit_btn" :disabled="loading">
-          <span
-            v-show="loading"
-            class=""
-          ></span>
-          <span>Login</span>
-        </button>
-      </div>
-
-      <div class="response">
-        <div v-if="message" class="message__respones" role="alert">
-          {{ message }}
+        <div v-if="loginStatus" class="succes_popup">
+          <succes-item text="Succes Login!"></succes-item>
         </div>
+
+        <Form v-else @submit="handleLogin" :validation-schema="schema">
+
+          <div class="login__info">
+            <h1 class="login__title">Login</h1>
+          </div>
+          
+          <hr>
+
+          <div class="img_container">
+            <img src="png/avatar.png" alt="Avatar" class="profile_img">
+          </div>
+
+          <div class="input_container">
+
+            <input-item type="text" name="username" placeholder="Enter Username"></input-item>
+            
+            <input-item type="password" name="password" placeholder="Enter Password"></input-item>
+
+            <button class="submit_btn" :disabled="loading">
+              <span
+                v-show="loading"
+                class=""
+              ></span>
+              <span>Login</span>
+            </button>
+          </div>
+
+          <div class="response">
+            <div v-if="message" class="message__respones" role="alert">
+              {{ message }}
+            </div>
+          </div>
+
+          <div class="other">
+            <div class="other_info">
+              <a href="/register" class="other_info-link">Registration?</a>
+            </div>
+            <div class="other_info">
+              Forgot <a href="#" class="other_info-link">password?</a>
+            </div>
+          </div>
+
+        </Form>
       </div>
 
-      <div class="other">
-				<div class="other_info">
-					<a href="/register" class="other_info-link">Registration?</a>
-				</div>
-				<div class="other_info">
-					Forgot <a href="#" class="other_info-link">password?</a>
-				</div>
-	  	</div>
+    </section>
+  </main>
 
-    </Form>
-  </div>
+  
 </template>
 
 <script>
@@ -104,11 +119,13 @@ export default {
 </script>
 
 <style scoped>
+.login__content {
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
 
 .wrapper {
-  max-width: 25%;
-  margin: 0 auto;
-  margin-top: 75px;
+  max-width: 400px;
 }
 
 .succes_popup {
@@ -116,13 +133,18 @@ export default {
   margin-top: 15%;
 }
 
+.login__title {
+  text-align: center;
+  font-size: 40px;
+  line-height: 60px;
+}
+
 .img_container {
   text-align: center;
-  margin: 24px 0 12px 0;
+  margin: 24px 0 0px 0px;
 }
 
 .profile_img {
-  width: 100px;
   border-radius: 50%;
 }
 
