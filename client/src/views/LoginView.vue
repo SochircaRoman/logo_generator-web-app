@@ -2,7 +2,6 @@
 
   <main class="login">
     <section class="login__content">
-      
       <div class="wrapper">
 
         <div v-if="loginStatus" class="succes_popup">
@@ -27,13 +26,8 @@
             
             <input-item type="password" name="password" placeholder="Enter Password"></input-item>
 
-            <button class="submit_btn" :disabled="loading">
-              <span
-                v-show="loading"
-                class=""
-              ></span>
-              <span>Login</span>
-            </button>
+            <btn-item btnName="Login"></btn-item>
+
           </div>
 
           <div class="response">
@@ -52,8 +46,8 @@
           </div>
 
         </Form>
-      </div>
 
+      </div>
     </section>
   </main>
 
@@ -64,6 +58,7 @@
 import { Form } from "vee-validate";
 import InputItem from "../components/UI/InputItem.vue";
 import SuccesItem from "../components/UI/SuccesItem.vue";
+import BtnItem from "../components/UI/BtnItem.vue"
 import * as yup from "yup";
 
 export default {
@@ -72,6 +67,7 @@ export default {
     Form,
     InputItem,
     SuccesItem,
+    BtnItem,
   },
   data: () => ({
     loading: false,
@@ -179,15 +175,15 @@ export default {
 
 .other {
   min-height: 30px;
-  padding-top: 10px;
+  padding: 10px;
   display: flex;
   justify-content: space-around;
   background-color:#f1f1f1;
+  font-size: 18px;
 }
 
 .other_info-link {
   text-decoration: none;
-  font-size: 15px;
 }
 
 </style>

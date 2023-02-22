@@ -68,7 +68,7 @@ export default {
 
 <style>
 .about__content {
-  margin-top: 150px;
+  margin-top: 140px;
   margin-bottom: 80px;
 }
 

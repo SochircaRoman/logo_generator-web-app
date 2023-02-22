@@ -22,13 +22,8 @@
 
             <input-item type="password" name="confirm" placeholder="Confirm Password"></input-item>
 
-            <button class="submit_btn" :disabled="loading">
-              <span
-                v-show="loading"
-                class=""
-              ></span>
-              <span>Submit</span>
-            </button>
+            <btn-item btnName="Submit"></btn-item>
+
           </div>
 
           <div class="message" v-if="message">
@@ -55,6 +50,7 @@
 <script>
 import { Form } from "vee-validate";
 import InputItem from "../components/UI/InputItem.vue";
+import BtnItem from "../components/UI/BtnItem.vue";
 import * as yup from "yup";
 
 export default {
@@ -62,6 +58,7 @@ export default {
   components: {
     Form,
     InputItem,
+    BtnItem,
   },
   data: () => ({
     successful: false,
