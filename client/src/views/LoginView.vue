@@ -17,7 +17,7 @@
           <hr>
 
           <div class="img_container">
-            <img src="png/avatar.png" alt="Avatar" class="profile_img">
+            <img src="png/avatar.png" alt="avatar" class="profile_img">
           </div>
 
           <div class="input_container">
@@ -137,7 +137,7 @@ export default {
 
 .img_container {
   text-align: center;
-  margin: 24px 0 0px 0px;
+  margin: 24px 0px 0px 0px;
 }
 
 .profile_img {
@@ -146,21 +146,6 @@ export default {
 
 .input_container {
   padding: 16px;
-}
-
-.submit_btn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  font-size: 20px;
-}
-
-.submit_btn:hover {
-  opacity: 0.8;
 }
 
 .response {

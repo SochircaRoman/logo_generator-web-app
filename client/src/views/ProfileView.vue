@@ -5,12 +5,16 @@
 
       <div class="wrapper">
         <div class="profile">
-          
-          <div class="profile__picture">
-            <img src="/avatar.png" alt="Profile picture" class="profile__picture-img">
-          </div>
 
+          <div class="profile__info">
+            <h1 class="profile__title">Profile Information</h1>
+          </div>
+          
           <hr>
+
+          <div class="img_container">
+            <img src="png/avatar.png" alt="avatar" class="profile_img">
+          </div>
 
           <div class="profile__information">
             <div class="profile__information-field" v-for="field in fieldNames" :key="field.id">
@@ -88,17 +92,20 @@ export default {
   max-width: 30%;
   margin: 0 auto;
   margin-top: 75px;
-  height: 1000px;
 }
 
-.profile__picture {
+.profile__title {
   text-align: center;
-  margin: 100px 0 12px 0;
+  font-size: 40px;
+  line-height: 60px;
 }
 
-.profile__picture-img {
-  width: 120px;
-  height: 120px;
+.img_container {
+  text-align: center;
+  margin: 24px 0px 15px 0px;
+}
+
+.profile_img {
   border-radius: 50%;
 }
 
