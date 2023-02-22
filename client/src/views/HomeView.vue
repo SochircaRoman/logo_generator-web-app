@@ -1,6 +1,6 @@
 <template>
   
-  <main class="main">
+  <main class="home">
     
       <section class="home__top">
         <div class="wrapper">
