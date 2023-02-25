@@ -22,17 +22,25 @@ class UsersService {
 
     async updateUsername(newUsername, id) {
 
-        // Check if user exist
-        const existingUser = await User.findById(id)
-        if (!existingUser) {
-          throw new Error(`User with id '${id}' not found`);
+        // Check if username is not identic
+        const checkUser = await User.findById(id)
+        if (newUsername == checkUser.username) {
+          throw new Error("Identic Username!");
         }
 
-        // Update the user username
-        const updatedUser = await existingUser.update({ username: newUsername });
+        // Check if username is unique
+        const checkUsername = await User.findOne({ username: newUsername })
+        if (checkUsername) {
+          throw new Error(`User with username '${username}' already exists`);
+        }
+
+        // Update the username
+        const updatedUser = await checkUser.update({ username: newUsername });
         if (!updatedUser) {
           throw new Error("Username update error");
         }
+        
+        // If all ok return updatedUser
         return updatedUser;
     }
 

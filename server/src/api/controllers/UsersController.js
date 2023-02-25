@@ -35,28 +35,29 @@ class UsersController{
     async updateUsername(request, response){
         try{
             // Get and verify if request is not empty
-            const { newUsername } = request.body
+            const { newUsername } = request.body.data
             if (newUsername == "") {
                 return response.status(404).json({message: "Nothing to update"});
             }
 
-            // Verify if id is valid and user exist
-            const user = await UsersService.getUserById(request.params.id)
-            if(!user){
-               return response.status(404).json({ error: "User with that id no exist" })
+            // Update user information
+            const updatedUser = await UsersService.updateUsername(newUsername, request.params.id)
+            if (!updatedUser) {
+                return response.status(400).json({ message: "Username update error!" })
             }
 
-            // Update user information
-            return response.status(200).json(await UsersService.updateUsername(newUsername, request.params.id));
+            // Send the succes response
+            return response.status(200).json({ message: "Username successfully updated", user: updatedUser });
         } catch(error){
-            return response.status(500).json(JSON.stringify(error))
+            // Send error response
+            return response.status(400).json({ message: error.message })
         }
     }
 
     async updatePassword(request, response){
         try{
             // Get and verify if request is not empty
-            const { oldPassword, newPassword} = request.body
+            const { oldPassword, newPassword} = request.body.data
             if (!oldPassword && !newPassword) {
                 return response.status(404).json({message: "Nothing to update"});
             }
