@@ -23,7 +23,7 @@ export default {
 <style>
 
 .input_group {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .input_field {

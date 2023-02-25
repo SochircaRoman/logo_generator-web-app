@@ -4,7 +4,7 @@
     <section class="profile__content">
 
       <div class="wrapper">
-        <div class="profile">
+        <div class="profile__content-container">
 
           <div class="profile__info">
             <h1 class="profile__title">Profile Information</h1>
@@ -131,65 +131,4 @@ export default {
   justify-content: end;
   align-items: flex-end;
 }
-
-
-.input_container {
-  padding: 16px;
-}
-
-.input_group {
-  margin-bottom: 15px;
-}
-
-.submit_btn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  font-size: 20px;
-}
-
-.submit_btn:hover {
-  opacity: 0.8;
-}
-
-.input_field {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-.error-feedback {
-  color: #f23648;
-}
-
-.response {
-  margin: -10px;
-  margin-bottom: 20px;
-}
-
-.message__respones {
-  color: #f23648;
-  text-align: center;
-}
-
-.other {
-  min-height: 30px;
-  padding-top: 10px;
-  display: flex;
-  justify-content: space-around;
-  background-color:#f1f1f1;
-}
-
-.other_info-link {
-  text-decoration: none;
-  font-size: 15px;
-}
-
 </style>

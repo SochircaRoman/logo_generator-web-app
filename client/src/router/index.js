@@ -6,6 +6,7 @@ import LoginView from '../views/LoginView.vue';
 
 // lazy-loaded
 const Profile = () => import("../views/ProfileView.vue");
+const Settings = () => import("../views/SettingsView.vue");
 
 const router = createRouter({
   history: createWebHistory(),
@@ -39,6 +40,12 @@ const router = createRouter({
       name: 'profile',
       // lazy-loaded
       component: Profile,
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      // lazy-loaded
+      component: Settings,
     },
   ]
 })
