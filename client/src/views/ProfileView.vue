@@ -87,11 +87,12 @@ export default {
 </script>
 
 <style scoped>
-
-.wrapper {
-  max-width: 30%;
-  margin: 0 auto;
+.profile__content {
   margin-top: 75px;
+  margin-bottom: 200px;
+}
+.wrapper {
+  max-width: 500px;
 }
 
 .profile__title {
@@ -113,7 +114,7 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   background: rgba(204, 204, 204, 0.304);
 }
 
