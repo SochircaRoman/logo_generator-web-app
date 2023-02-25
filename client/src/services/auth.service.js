@@ -29,6 +29,7 @@ class AuthService {
       }
     });
 
+    console.log(candidate);
     // Add data to localStorage
     if (candidate.data.user.accessToken) {
       localStorage.setItem("user", JSON.stringify(candidate.data.user.existingUser));

@@ -79,7 +79,7 @@ class AuthService {
         }
 
         // If all ok return accessToken and the existingUser
-        return {existingUser, ...accessToken}
+        return {existingUser, accessToken}
     }
 
 }
