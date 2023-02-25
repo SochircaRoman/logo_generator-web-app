@@ -5,7 +5,8 @@
     <div class="header__profile">
       <img src="/png/user.png" alt="profile">
       {{ username }}
-      <img class="menu__caret" src="/svg/caret_down.svg" alt="down">
+      <img v-if="!isOpen" class="menu__caret" src="/svg/caret_down.svg" alt="down">
+      <img v-if="isOpen" class="menu__caret" src="/svg/caret_up.svg" alt="up">
     </div>
 
     
@@ -51,6 +52,7 @@ export default {
   color: #000000;
   cursor: pointer;
 }
+
 .menu__caret {
   width: 30px;
   height: 30px;

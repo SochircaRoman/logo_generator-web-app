@@ -24,6 +24,8 @@ export default {
 
 <style>
 .container {
+  margin: 0 auto;
+  margin-top: 35%;
   width: 300px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px gray;
