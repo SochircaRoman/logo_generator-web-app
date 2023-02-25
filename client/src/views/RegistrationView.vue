@@ -20,7 +20,7 @@
 
             <input-item type="password" name="password" placeholder="Enter Password" description="Password"></input-item>
 
-            <input-item type="password" name="confirm" placeholder="Confirm Password" description="Confirm Password"></input-item>
+            <input-item type="password" name="confirmPassword" placeholder="Confirm Password" description="Confirm Password"></input-item>
 
             <btn-item btnName="Submit"></btn-item>
 
@@ -72,7 +72,7 @@ export default {
         username: yup.string().min(4).max(this.max).required("Username is required!").label("Username"),
         email: yup.string().email().required("Email is required!").label("Email"),
         password: yup.string().min(6).max(this.max).required("Password is required!").label("Password"),
-        confirm: yup.string().required("Repeat Password!").oneOf([yup.ref("password")], "Passwords do not match")
+        confirmPassword: yup.string().required("Repeat Password!").oneOf([yup.ref("password")], "Passwords do not match")
       })
     },
     loggedIn() {
@@ -124,47 +124,13 @@ export default {
   line-height: 60px;
 }
 
-.registration__line {
-  
-}
-
 .input_container {
   padding: 16px;
-}
-
-.submit_btn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  font-size: 20px;
-}
-
-.submit_btn:hover {
-  opacity: 0.8;
 }
 
 .message {
   margin: -10px;
   margin-bottom: 20px;
-}
-
-.message__success {
-  margin: 0 auto;
-  margin-top: 20px;
-  color: #04AA6D;
-  background-color: #d1dcd88a;
-  text-align: center;
-  padding: 30px;
-  font-size: 20px;
-}
-
-.message__alert {
-  color: #f23648;
-  text-align: center;
 }
 
 .other_info-text {

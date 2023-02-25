@@ -6,50 +6,53 @@
       <div class="wrapper">
         <div class="settings__content-container">
 
-          <div class="settings__info">
-            <h1 class="settings__title">Edit Profile</h1>
-          </div>
-          
-          <hr>
+          <Form :validation-schema="schema">
+            <div class="settings__info">
+              <h1 class="settings__title">Edit Profile</h1>
+            </div>
 
-          <div class="settings__update-container">
-            <div class="img_container">
-              <img src="png/avatar.png" alt="avatar" class="profile_img">
-            </div>
-            <btn-item class="settings__upload-btn" btnName="Upload Photo"></btn-item>
-            <div class="settings__upload-background">
-              <p class="settings__upload-info">Upload a new avatar. Larger image will be resized automatically.</p>
-              <p class="settings__upload-info">Maximum upload size is 1 MB</p>
-            </div>
-          </div>
+            <hr>
 
-          <div class="settings__update-container">
-            <div class="profile__information-field">
-              <div class="field__name">Username:</div>
-              <div class="field__data">{{ currentUser.username }}</div>
+            <div class="settings__update-container">
+              <div class="img_container">
+                <img src="png/avatar.png" alt="avatar" class="profile_img">
+              </div>
+              <btn-item class="settings__upload-btn" btnName="Upload Photo"></btn-item>
+              <div class="settings__upload-background">
+                <p class="settings__upload-info">Upload a new avatar. Larger image will be resized automatically.</p>
+                <p class="settings__upload-info">Maximum upload size is 1 MB</p>
+              </div>
             </div>
-            <input-item class="profile__input-item" type="text" name="" placeholder="New Username"></input-item>
-            <btn-item class="settings__update-btn" btnName="Update Username"></btn-item>
-          </div>
 
-          <div class="settings__update-container">
-            <div class="profile__information-field">
-              <div class="field__name">Password:</div>
-              <div class="field__data">********</div>
+            <div class="settings__update-container">
+              <div class="profile__information-field">
+                <div class="field__name">Username:</div>
+                <div class="field__data">{{ currentUser.username }}</div>
+              </div>
+              <input-item class="profile__input-item" type="text" name="username" placeholder="New Username"></input-item>
+              <btn-item class="settings__update-btn" btnName="Update Username"></btn-item>
             </div>
-            <input-item class="profile__input-item" type="password" name="" placeholder="Old Password"></input-item>
-            <input-item class="profile__input-item" type="password" name="" placeholder="New Password"></input-item>
-            <btn-item class="settings__update-btn" btnName="Update Password"></btn-item>
-          </div>
 
-          <div class="settings__update-container">
-            <div class="profile__information-field">
-              <div class="field__name">Email:</div>
-              <div class="field__data">{{ currentUser.email }}</div>
+            <div class="settings__update-container">
+              <div class="profile__information-field">
+                <div class="field__name">Password:</div>
+                <div class="field__data">********</div>
+              </div>
+              <input-item class="profile__input-item" type="password" name="password" placeholder="Old Password"></input-item>
+              <input-item class="profile__input-item" type="password" name="newPassword" placeholder="New Password"></input-item>
+              <btn-item class="settings__update-btn" btnName="Update Password"></btn-item>
             </div>
-            <input-item class="profile__input-item" type="text" name="" placeholder="New Email"></input-item>
-            <btn-item class="settings__update-btn" btnName="Update Email"></btn-item>
-          </div>
+
+            <div class="settings__update-container">
+              <div class="profile__information-field">
+                <div class="field__name">Email:</div>
+                <div class="field__data">{{ currentUser.email }}</div>
+              </div>
+              <input-item class="profile__input-item" type="text" name="email" placeholder="New Email"></input-item>
+              <btn-item class="settings__update-btn" btnName="Update Email"></btn-item>
+            </div>
+          </Form>
+
 
 
         </div>
@@ -63,15 +66,26 @@
 <script>
 import BtnItem from "../components/UI/btnItem.vue";
 import InputItem from "../components/UI/InputItem.vue";
+import { Form } from "vee-validate";
+import * as yup from "yup";
 export default {
   components: {
     BtnItem,
-    InputItem
+    InputItem,
+    Form,
   },
   data() {
     return {}
   },
   computed: {
+    schema() {
+      return yup.object({
+        username: yup.string().min(4).max(30).required("Username is required!").label("Username"),
+        password: yup.string().min(6).max(20).required("Password is required!").label("Password"),
+        newPassword: yup.string().min(6).max(20).required("New Password is required!").label("New Password"),
+        email: yup.string().email().required("Email is required!").label("Email"),
+      })
+    },
     currentUser() {
       return this.$store.state.auth.user;
     },
