@@ -22,9 +22,9 @@
 
           <div class="input_container">
 
-            <input-item type="text" name="username" placeholder="Enter Username"></input-item>
+            <input-item type="text" name="username" placeholder="Enter Username" description="Username"></input-item>
             
-            <input-item type="password" name="password" placeholder="Enter Password"></input-item>
+            <input-item type="password" name="password" placeholder="Enter Password" description="Password"></input-item>
 
             <btn-item btnName="Login"></btn-item>
 

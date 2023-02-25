@@ -14,13 +14,13 @@
           
           <div class="input_container" v-if="!successful">
 
-            <input-item type="text" name="username" placeholder="Enter Username"></input-item>
+            <input-item type="text" name="username" placeholder="Enter Username" description="Username"></input-item>
 
-            <input-item type="email" name="email" placeholder="Enter Email"></input-item>
+            <input-item type="email" name="email" placeholder="Enter Email" description="Email"></input-item>
 
-            <input-item type="password" name="password" placeholder="Enter Password"></input-item>
+            <input-item type="password" name="password" placeholder="Enter Password" description="Password"></input-item>
 
-            <input-item type="password" name="confirm" placeholder="Confirm Password"></input-item>
+            <input-item type="password" name="confirm" placeholder="Confirm Password" description="Confirm Password"></input-item>
 
             <btn-item btnName="Submit"></btn-item>
 

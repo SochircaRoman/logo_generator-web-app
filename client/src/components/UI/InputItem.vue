@@ -26,7 +26,7 @@ export default {
   margin-bottom: 10px;
 }
 
-.input_field {
+.input__field {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
