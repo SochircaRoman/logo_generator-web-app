@@ -1,9 +1,9 @@
 <template>
 
-  <div class="input_group">
-    <label :for="name"><b>{{ name.charAt(0).toUpperCase() + name.slice(1) }}</b></label>
-    <Field :name="name" :type="type" :placeholder="placeholder" class="input_field" :validateOnInput="true" />
-    <ErrorMessage :name="name" class="error-feedback" />
+  <div class="input__group">
+    <label v-if="description != ''" :for="name"><b>{{ description }}</b></label>
+    <Field :name="name" :type="type" :placeholder="placeholder" class="input__field" :validateOnInput="true" />
+    <ErrorMessage :name="name" class="error__feedback" />
   </div>
   
 </template>
@@ -12,7 +12,7 @@
 import { Field, ErrorMessage } from "vee-validate";
 
 export default {
-  props: ["type", "name", "placeholder"],
+  props: ["type", "name", "placeholder", "description"],
   components: {
     Field,
     ErrorMessage,
@@ -22,7 +22,7 @@ export default {
 
 <style>
 
-.input_group {
+.input__group {
   margin-bottom: 10px;
 }
 
@@ -35,7 +35,7 @@ export default {
   box-sizing: border-box;
 }
 
-.error-feedback {
+.error__feedback {
   color: #f23648;
 }
 
