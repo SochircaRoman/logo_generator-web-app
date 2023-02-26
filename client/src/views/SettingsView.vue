@@ -63,7 +63,7 @@
                   <div class="field__name">Email:</div>
                   <div class="field__data">{{ currentUser.email }}</div>
                 </div>
-                <input-item class="profile__input-item" type="text" name="email" placeholder="New Email"></input-item>
+                <input-item class="profile__input-item" type="text" name="newEmail" placeholder="New Email"></input-item>
                 <btn-item class="settings__update-btn" btnName="Update Email"></btn-item>
                 <div class="message" v-if="messages[2].visible">
                   <div :class="successful ? 'message__success' : 'message__alert'">
@@ -126,7 +126,7 @@ export default {
     },
     emailSchema() {
       return yup.object({
-        email: yup.string().email().required("Email is required!").label("Email"),
+        newEmail: yup.string().email().required("Email is required!").label("Email"),
       })
     },
     currentUser() {

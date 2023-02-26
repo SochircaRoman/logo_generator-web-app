@@ -73,7 +73,7 @@ class UserService {
 
   async updateEmail(newEmail, id) {
     const updatedUser = await GenericService.request({
-      url: `users/updateUsername/${id}`,
+      url: `users/updateEmail/${id}`,
       method: 'patch',
       data: {
         newEmail: newEmail,

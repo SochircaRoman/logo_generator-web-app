@@ -92,7 +92,7 @@ class UsersService {
     }
 
     async updateEmail(newEmail, id) {
-
+      
       // Check if email is not identic
       const checkUser = await User.findById(id)
       if (newEmail == checkUser.email) {
@@ -111,6 +111,7 @@ class UsersService {
         throw new Error("Email update error!");
       }
 
+      console.log(newEmail)
       // Check if email is updated
       const checkUpdatedUser = await User.findOne({ email: newEmail })
       if (!checkUpdatedUser) {

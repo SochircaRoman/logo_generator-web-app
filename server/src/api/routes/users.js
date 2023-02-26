@@ -13,6 +13,7 @@ router.route('/:id').get(authorization.adminAuth).get(controller.getUser);
 // Only Users acces
 router.route('/updateUsername/:id').get(authorization.userAuth).patch(controller.updateUsername);
 router.route('/updatePassword/:id').get(authorization.userAuth).patch(controller.updatePassword);
+router.route('/updateEmail/:id').get(authorization.userAuth).patch(controller.updateEmail);
 router.route('/deleteUser/:id').get(authorization.userAuth).delete(controller.deleteUser);
 
 
