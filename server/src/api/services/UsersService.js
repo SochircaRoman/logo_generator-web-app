@@ -52,30 +52,37 @@ class UsersService {
 
     async updatePassword(oldPassword, newPassword, id) {
 
-        // Verify if id is valid and user exist
-        const existingUser = await User.findById(id)
-        if (!existingUser) {
-          throw new Error(`User with id '${id}' not found`);
+        // Check if user exist
+        const checkUser = await User.findById(id)
+        if (!checkUser) {
+          throw new Error(`User with id '${id}' not found!`);
         }
 
         // Check if old password is correct
-        const checkPassword = await bcrypt.compare(oldPassword, existingUser.password);
+        const checkPassword = await bcrypt.compare(oldPassword, checkUser.password);
         if (!checkPassword) {
-          throw new Error("Password is not correct")
+          throw new Error("Password is not correct!")
         }
 
         // Generate new hashPassword
         const newHashPassword = await bcrypt.hash(newPassword, 10)
         if (!newHashPassword) {
-          throw new Error("Hash password generate error")
+          throw new Error("Hash password generate error!")
         }
 
         // Update the user password
-        const updatedUser = await existingUser.update({ password: newHashPassword });
-        if (!updatedUser) {
-          throw new Error("Password update error");
+        const updatePassword = await checkUser.updateOne({ password: newHashPassword });
+        if (!updatePassword) {
+          throw new Error("Password update error!");
         }
 
+        // Get updatedUser
+        const updatedUser = await User.findOne({ password: newHashPassword })
+        if (!updatedUser) {
+          throw new Error("Password has not been updated!");
+        }
+
+        // If all ok return updatedUser
         return updatedUser;
     }
 

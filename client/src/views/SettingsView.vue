@@ -46,9 +46,14 @@
                   <div class="field__name">Password:</div>
                   <div class="field__data">********</div>
                 </div>
-                <input-item class="profile__input-item" type="password" name="password" placeholder="Old Password"></input-item>
+                <input-item class="profile__input-item" type="password" name="oldPassword" placeholder="Old Password"></input-item>
                 <input-item class="profile__input-item" type="password" name="newPassword" placeholder="New Password"></input-item>
                 <btn-item class="settings__update-btn" btnName="Update Password"></btn-item>
+                <div class="message" v-if="message">
+                  <div :class="successful ? 'message__success' : 'message__alert'">
+                    {{ message }}
+                  </div>
+                </div>
               </div>
             </Form>
 
@@ -98,7 +103,7 @@ export default {
     },
     passwordSchema() {
       return yup.object({
-        password: yup.string().min(6).max(20).required("Old Password is required!").label("Old Password"),
+        oldPassword: yup.string().min(6).max(20).required("Old Password is required!").label("Old Password"),
         newPassword: yup.string().min(6).max(20).required("New Password is required!").label("New Password"),
       })
     },
@@ -115,12 +120,12 @@ export default {
     },
   },
   methods: {
-    updateUsername(newUsername) {
+    updateUsername(user) {
       this.message = "";
       this.loading = true;
       this.successful = false;
 
-      this.$store.dispatch("users/updateUsername", newUsername.newUsername).then(
+      this.$store.dispatch("users/updateUsername", user.newUsername).then(
         (data) => {
           this.message = data.message;
           this.successful = true;
@@ -135,7 +140,23 @@ export default {
       )
     },
     updatePassword(user) {
-      console.log(user);
+      this.message = "";
+      this.loading = true;
+      this.successful = false;
+
+      this.$store.dispatch("users/updatePassword", {oldPassword: user.oldPassword, newPassword: user.newPassword, id: this.currentUserId}).then(
+        (data) => {
+          this.message = data.message;
+          this.successful = true;
+          this.loading = false;
+          this.$router.go();
+        },
+        (error) => {
+          this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+          this.successful = false;
+          this.loading = false;
+        }
+      )
     },
     updateEmail(user) {
       console.log(user);

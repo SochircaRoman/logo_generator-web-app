@@ -63,9 +63,16 @@ class UsersController{
             }
 
             // Update user information
-            return response.status(200).json(await UsersService.updateUserPassword(oldPassword, newPassword, request.params.id));
+            const updatedUser = await UsersService.updatePassword(oldPassword, newPassword, request.params.id)
+            if (!updatedUser) {
+                return response.status(400).json({ message: "Password update error!" })
+            }
+
+            // Send the succes response
+            return response.status(200).json({ message: "Password successfully updated", updatedUser: updatedUser });
         } catch(error){
-            return response.status(500).json(JSON.stringify(error))
+            // Send error response
+            return response.status(400).json({ message: error.message })
         }
     }
 

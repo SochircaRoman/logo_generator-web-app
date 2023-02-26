@@ -50,6 +50,27 @@ class UserService {
     // If all ok return
     return updatedUser.data;
   }
+
+  async updatePassword(oldPassword, newPassword, id) {
+    const updatedUser = await GenericService.request({
+      url: `users/updatePassword/${id}`,
+      method: 'patch',
+      data: {
+        oldPassword: oldPassword,
+        newPassword: newPassword
+      }
+    });
+
+    // Refresh user information
+    if (updatedUser.data.updatedUser) {
+      localStorage.removeItem("user");
+      localStorage.setItem("user", JSON.stringify(updatedUser.data.updatedUser));
+    }
+
+    // If all ok return
+    return updatedUser.data;
+  }
+
 }
 
 export default new UserService();

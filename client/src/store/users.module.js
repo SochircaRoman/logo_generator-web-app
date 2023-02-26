@@ -16,6 +16,16 @@ export const users = {
         }
       );
     },
+    updatePassword({}, data) {
+      return UsersService.updatePassword(data.oldPassword, data.newPassword, data.id).then(
+        response => {
+          return Promise.resolve(response)
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
   },
   mutations: {
     updateSuccess(state) {
