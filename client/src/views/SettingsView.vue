@@ -13,16 +13,21 @@
 
             <hr>
 
-            <div class="settings__update-container">
-              <div class="img_container">
-                <img src="png/avatar.png" alt="avatar" class="profile_img">
+            <Form enctype="multipart/form-data" @submit="updatePicture">
+              <div class="settings__update-container">
+                <div class="img__container">
+                  <img class="profile__img" :src="previewImage" alt="avatar">
+                  <input class="profile__select" type="file" accept=".png, .jpg, .jpeg" @change="onFileSelected" ref="fileInput">
+                  <btn-item @click="$refs.fileInput.click()" class="settings__select-btn" btnName="Select Picture"></btn-item>
+                </div>
+                <btn-item class="settings__update-btn" btnName="Update Picture"></btn-item>
+                <div class="settings__upload-background">
+                  <p class="settings__upload-info">Upload a new avatar. Larger image will be resized automatically.</p>
+                  <p class="settings__upload-info">Maximum upload size is 1 MB</p>
+                </div>
               </div>
-              <btn-item class="settings__upload-btn" btnName="Upload Photo"></btn-item>
-              <div class="settings__upload-background">
-                <p class="settings__upload-info">Upload a new avatar. Larger image will be resized automatically.</p>
-                <p class="settings__upload-info">Maximum upload size is 1 MB</p>
-              </div>
-            </div>
+            </Form>
+            
           
             <Form @submit="updateUsername" :validation-schema="usernameSchema">
               <div class="settings__update-container">
@@ -94,9 +99,16 @@ export default {
   },
   data() {
     return {
+      selectedFile: null,
+      previewImage: "/png/avatar.png",
+
       successful: false,
       loading: false,
       messages: [
+        {
+          visible: false,
+          text: "",
+        },
         {
           visible: false,
           text: "",
@@ -137,6 +149,30 @@ export default {
     },
   },
   methods: {
+    onFileSelected(event) {
+      console.log(event.target.files[0]);
+      this.selectedFile = event.target.files[0];
+      this.previewImage = URL.createObjectURL(this.selectedFile);
+    },
+    updatePicture(file) {
+      console.log(file);
+      this.messages[3].visible = true;
+      this.messages[3].text = "";
+
+      this.$store.dispatch("users/uploadFile", {file: this.selectedFile}).then(
+        (data) => {
+          this.messages[3].text = data.message;
+          this.successful = true;
+          this.loading = false;
+          //setTimeout(() => {this.$router.go()}, 3000);
+        },
+        (error) => {
+          this.messages[3].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+          this.successful = false;
+          this.loading = false;
+        }
+      )
+    },
     updateUsername(user) {
       this.messages[0].visible = true;
       this.messages[0].text = "";
@@ -213,6 +249,7 @@ export default {
   margin-top: 75px;
   margin-bottom: 150px;
 }
+
 .wrapper {
   max-width: 400px;
 }
@@ -223,18 +260,30 @@ export default {
   line-height: 60px;
 }
 
-.img_container {
+.img__container {
   text-align: center;
   margin: 24px 0px 15px 0px;
 }
 
-.profile_img {
+.profile__img {
   border-radius: 50%;
+  max-width: 100px;
+  min-height: 100px;
+}
+
+.profile__select {
+  display: none;
+}
+
+.settings__select-btn {
+
 }
 
 .settings__update-container {
   margin-bottom: 40px;
 }
+
+
 
 .settings__upload-background {
   background: rgba(204, 204, 204, 0.304);

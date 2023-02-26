@@ -32,6 +32,21 @@ class UserService {
     return content;
   }
 
+  async uploadFile(file) {
+
+    // Create an Form Data object
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const uploadedFile = await GenericService.request({
+      url: "users/upload",
+      method: 'post',
+      data: {
+        file: formData,
+      }
+    });
+  }
+
   async updateUsername(newUsername, id) {
     const updatedUser = await GenericService.request({
       url: `users/updateUsername/${id}`,
