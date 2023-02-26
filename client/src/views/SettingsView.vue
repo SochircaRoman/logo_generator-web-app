@@ -32,9 +32,9 @@
                 </div>
                 <input-item class="profile__input-item" type="text" name="newUsername" placeholder="New Username"></input-item>
                 <btn-item class="settings__update-btn" btnName="Update Username"></btn-item>
-                <div class="message" v-if="message">
+                <div class="message" v-if="messages[0].visible">
                   <div :class="successful ? 'message__success' : 'message__alert'">
-                    {{ message }}
+                    {{ messages[0].text }}
                   </div>
                 </div>
               </div>
@@ -49,9 +49,9 @@
                 <input-item class="profile__input-item" type="password" name="oldPassword" placeholder="Old Password"></input-item>
                 <input-item class="profile__input-item" type="password" name="newPassword" placeholder="New Password"></input-item>
                 <btn-item class="settings__update-btn" btnName="Update Password"></btn-item>
-                <div class="message" v-if="message">
+                <div class="message" v-if="messages[1].visible">
                   <div :class="successful ? 'message__success' : 'message__alert'">
-                    {{ message }}
+                    {{ messages[1].text }}
                   </div>
                 </div>
               </div>
@@ -65,9 +65,9 @@
                 </div>
                 <input-item class="profile__input-item" type="text" name="email" placeholder="New Email"></input-item>
                 <btn-item class="settings__update-btn" btnName="Update Email"></btn-item>
-                <div class="message" v-if="message">
+                <div class="message" v-if="messages[2].visible">
                   <div :class="successful ? 'message__success' : 'message__alert'">
-                    {{ message }}
+                    {{ messages[2].text }}
                   </div>
                 </div>
               </div>
@@ -96,7 +96,20 @@ export default {
     return {
       successful: false,
       loading: false,
-      message: "",
+      messages: [
+        {
+          visible: false,
+          text: "",
+        },
+        {
+          visible: false,
+          text: "",
+        },
+        {
+          visible: false,
+          text: "",
+        },
+      ],
     }
   },
   computed: {
@@ -120,50 +133,55 @@ export default {
       return this.$store.state.auth.user;
     },
     currentUserId() {
-      return String(this.$store.state.auth.user._id);
+      return this.$store.state.auth.user._id;
     },
   },
   methods: {
     updateUsername(user) {
-      this.message = "";
+      this.messages[0].visible = true;
+      this.messages[0].text = "";
+
       this.loading = true;
       this.successful = false;
 
       this.$store.dispatch("users/updateUsername", {newUsername: user.newUsername, id: this.currentUserId}).then(
         (data) => {
-          this.message = data.message;
+          this.messages[0].text = data.message;
           this.successful = true;
           this.loading = false;
-          //this.$router.go();
+          setTimeout(() => {this.$router.go()}, 3000);
         },
         (error) => {
-          this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+          this.messages[0].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
           this.successful = false;
           this.loading = false;
         }
       )
     },
     updatePassword(user) {
-      this.message = "";
+      this.messages[1].visible = true;
+      this.messages[1].text = "";
+
       this.loading = true;
       this.successful = false;
 
       this.$store.dispatch("users/updatePassword", {oldPassword: user.oldPassword, newPassword: user.newPassword, id: this.currentUserId}).then(
         (data) => {
-          this.message = data.message;
+          this.messages[1].text = data.message;
           this.successful = true;
           this.loading = false;
           this.$router.go();
         },
         (error) => {
-          this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+          this.messages[1].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
           this.successful = false;
           this.loading = false;
         }
       )
     },
     updateEmail(user) {
-      console.log(user);
+      this.messages[2].visible = true;
+      this.messages[2].text = "";
     }
   },
   mounted () {
@@ -237,20 +255,17 @@ export default {
 }
 
 .message {
-  margin: -10px;
+  margin: 0 auto;
   margin-bottom: 20px;
+  font-size: 20px;
+  background-color: #d1dcd88a;
+  padding: 10px;
 }
 .message__success {
-  margin: 0 auto;
-  margin-top: 10px;
   color: #04AA6D;
-  background-color: #d1dcd88a;
   text-align: center;
-  padding: 30px;
-  font-size: 20px;
 }
 .message__alert {
-  margin-top: 10px;
   color: #f23648;
   text-align: center;
 }

@@ -52,6 +52,11 @@ class UsersService {
 
     async updatePassword(oldPassword, newPassword, id) {
 
+        // Check if passwords is not identic
+        if (oldPassword == newPassword) {
+          throw new Error("Identic Passwords!");
+        }
+
         // Check if user exist
         const checkUser = await User.findById(id)
         if (!checkUser) {
