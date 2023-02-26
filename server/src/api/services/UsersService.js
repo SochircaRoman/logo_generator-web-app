@@ -35,13 +35,13 @@ class UsersService {
         }
 
         // Update the username
-        const updatedUser = await checkUser.update({ username: newUsername });
+        const updatedUser = await checkUser.updateOne({ username: newUsername });
         if (!updatedUser) {
           throw new Error("Username update error");
         }
         
         // If all ok return updatedUser
-        return updatedUser;
+        return checkUser;
     }
 
     async updatePassword(oldPassword, newPassword, id) {

@@ -6,7 +6,7 @@
       <div class="wrapper">
         <div class="settings__content-container">
 
-          <Form :validation-schema="schema">
+          
             <div class="settings__info">
               <h1 class="settings__title">Edit Profile</h1>
             </div>
@@ -23,37 +23,45 @@
                 <p class="settings__upload-info">Maximum upload size is 1 MB</p>
               </div>
             </div>
-
-            <div class="settings__update-container">
-              <div class="profile__information-field">
-                <div class="field__name">Username:</div>
-                <div class="field__data">{{ currentUser.username }}</div>
+          
+            <Form @submit="updateUsername" :validation-schema="usernameSchema">
+              <div class="settings__update-container">
+                <div class="profile__information-field">
+                  <div class="field__name">Username:</div>
+                  <div class="field__data">{{ currentUser.username }}</div>
+                </div>
+                <input-item class="profile__input-item" type="text" name="newUsername" placeholder="New Username"></input-item>
+                <btn-item class="settings__update-btn" btnName="Update Username"></btn-item>
+                <div class="message" v-if="message">
+                  <div :class="successful ? 'message__success' : 'message__alert'">
+                    {{ message }}
+                  </div>
+                </div>
               </div>
-              <input-item class="profile__input-item" type="text" name="username" placeholder="New Username"></input-item>
-              <btn-item class="settings__update-btn" btnName="Update Username"></btn-item>
-            </div>
+            </Form>
 
-            <div class="settings__update-container">
-              <div class="profile__information-field">
-                <div class="field__name">Password:</div>
-                <div class="field__data">********</div>
+            <Form @submit="updatePassword" :validation-schema="passwordSchema">
+              <div class="settings__update-container">
+                <div class="profile__information-field">
+                  <div class="field__name">Password:</div>
+                  <div class="field__data">********</div>
+                </div>
+                <input-item class="profile__input-item" type="password" name="password" placeholder="Old Password"></input-item>
+                <input-item class="profile__input-item" type="password" name="newPassword" placeholder="New Password"></input-item>
+                <btn-item class="settings__update-btn" btnName="Update Password"></btn-item>
               </div>
-              <input-item class="profile__input-item" type="password" name="password" placeholder="Old Password"></input-item>
-              <input-item class="profile__input-item" type="password" name="newPassword" placeholder="New Password"></input-item>
-              <btn-item class="settings__update-btn" btnName="Update Password"></btn-item>
-            </div>
+            </Form>
 
-            <div class="settings__update-container">
-              <div class="profile__information-field">
-                <div class="field__name">Email:</div>
-                <div class="field__data">{{ currentUser.email }}</div>
+            <Form @submit="updateEmail" :validation-schema="emailSchema">
+              <div class="settings__update-container">
+                <div class="profile__information-field">
+                  <div class="field__name">Email:</div>
+                  <div class="field__data">{{ currentUser.email }}</div>
+                </div>
+                <input-item class="profile__input-item" type="text" name="email" placeholder="New Email"></input-item>
+                <btn-item class="settings__update-btn" btnName="Update Email"></btn-item>
               </div>
-              <input-item class="profile__input-item" type="text" name="email" placeholder="New Email"></input-item>
-              <btn-item class="settings__update-btn" btnName="Update Email"></btn-item>
-            </div>
-          </Form>
-
-
+            </Form>
 
         </div>
       </div>
@@ -68,6 +76,7 @@ import BtnItem from "../components/UI/btnItem.vue";
 import InputItem from "../components/UI/InputItem.vue";
 import { Form } from "vee-validate";
 import * as yup from "yup";
+import { toNumber } from "@vue/shared";
 export default {
   components: {
     BtnItem,
@@ -75,23 +84,61 @@ export default {
     Form,
   },
   data() {
-    return {}
+    return {
+      successful: false,
+      loading: false,
+      message: "",
+    }
   },
   computed: {
-    schema() {
+    usernameSchema() {
       return yup.object({
-        username: yup.string().min(4).max(30).required("Username is required!").label("Username"),
-        password: yup.string().min(6).max(20).required("Password is required!").label("Password"),
+        newUsername: yup.string().min(4).max(30).required("New Username is required!").label("New Username"),
+      })
+    },
+    passwordSchema() {
+      return yup.object({
+        password: yup.string().min(6).max(20).required("Old Password is required!").label("Old Password"),
         newPassword: yup.string().min(6).max(20).required("New Password is required!").label("New Password"),
-        email: yup.string().email().required("Email is required!").label("Email"),
+      })
+    },
+    emailSchema() {
+      return yup.object({
+        email: yup.string().email().required("New Email is required!").label("New Email"),
       })
     },
     currentUser() {
       return this.$store.state.auth.user;
     },
+    currentUserId() {
+      return String(this.$store.state.auth.user._id);
+    },
   },
   methods: {
-  
+    updateUsername(newUsername) {
+      this.message = "";
+      this.loading = true;
+      this.successful = false;
+
+      this.$store.dispatch("users/updateUsername", newUsername.newUsername).then(
+        (data) => {
+          this.message = data.message;
+          this.successful = true;
+          this.loading = false;
+        },
+        (error) => {
+          this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+          this.successful = false;
+          this.loading = false;
+        }
+      )
+    },
+    updatePassword(user) {
+      console.log(user);
+    },
+    updateEmail(user) {
+      console.log(user);
+    }
   },
   mounted () {
     if (!this.currentUser) {
@@ -161,6 +208,11 @@ export default {
   text-align: end;
   justify-content: end;
   align-items: flex-end;
+}
+
+.message {
+  margin: -10px;
+  margin-bottom: 20px;
 }
 
 </style>

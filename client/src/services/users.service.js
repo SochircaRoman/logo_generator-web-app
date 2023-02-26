@@ -9,7 +9,6 @@ class UserService {
       headers: authHeader(),
       data: {},
     });
-    console.log(content);
     return content;
   }
 
@@ -31,6 +30,25 @@ class UserService {
       data: {}
     });
     return content;
+  }
+
+  async updateUsername(newUsername, id) {
+    const updatedUser = await GenericService.request({
+      url: `users/updateUsername/${id}`,
+      method: 'patch',
+      data: {
+        newUsername: newUsername,
+      }
+    });
+
+    // Refresh user information
+    if (updatedUser.data.updatedUser) {
+      localStorage.removeItem("user");
+      localStorage.setItem("user", JSON.stringify(updatedUser.data.updatedUser));
+    }
+
+    // If all ok return
+    return updatedUser.data;
   }
 }
 

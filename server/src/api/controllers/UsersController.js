@@ -47,7 +47,7 @@ class UsersController{
             }
 
             // Send the succes response
-            return response.status(200).json({ message: "Username successfully updated", user: updatedUser });
+            return response.status(200).json({ message: "Username successfully updated", updatedUser: updatedUser });
         } catch(error){
             // Send error response
             return response.status(400).json({ message: error.message })

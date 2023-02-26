@@ -97,7 +97,6 @@ export default {
           this.loading = false;
         },
         (error) => {
-          console.log(error);
           this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
           this.successful = false;
           this.loading = false;

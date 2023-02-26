@@ -31,7 +31,7 @@
           </div>
 
           <div class="response">
-            <div v-if="message" class="message__respones" role="alert">
+            <div v-if="message" class="message__response" role="alert">
               {{ message }}
             </div>
           </div>
@@ -153,7 +153,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.message__respones {
+.message__response {
   color: #f23648;
   text-align: center;
 }
