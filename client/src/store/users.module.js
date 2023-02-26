@@ -9,7 +9,6 @@ export const users = {
     updateUsername({}, newUsername) {
       return UsersService.updateUsername(newUsername, user._id).then(
         response => {
-          console.log(response);
           return Promise.resolve(response)
         },
         error => {

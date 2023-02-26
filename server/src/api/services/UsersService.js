@@ -31,17 +31,23 @@ class UsersService {
         // Check if username is unique
         const checkUsername = await User.findOne({ username: newUsername })
         if (checkUsername) {
-          throw new Error(`User with username '${username}' already exists`);
+          throw new Error(`User with username '${username}' already exists!`);
         }
 
         // Update the username
         const updatedUser = await checkUser.updateOne({ username: newUsername });
         if (!updatedUser) {
-          throw new Error("Username update error");
+          throw new Error("Username update error!");
+        }
+
+        // Check if username is updated
+        const checkUpdatedUser = await User.findOne({ username: newUsername })
+        if (!checkUpdatedUser) {
+          throw new Error("Username has not been updated!");
         }
         
         // If all ok return updatedUser
-        return checkUser;
+        return checkUpdatedUser;
     }
 
     async updatePassword(oldPassword, newPassword, id) {
