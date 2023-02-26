@@ -31,7 +31,7 @@ class UsersService {
         // Check if username is unique
         const checkUsername = await User.findOne({ username: newUsername })
         if (checkUsername) {
-          throw new Error(`User with username '${username}' already exists!`);
+          throw new Error(`User with username '${newUsername}' already exists!`);
         }
 
         // Update the username

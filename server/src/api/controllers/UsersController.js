@@ -37,7 +37,7 @@ class UsersController{
             // Get and verify if request is not empty
             const { newUsername } = request.body.data
             if (newUsername == "") {
-                return response.status(404).json({message: "Nothing to update"});
+                return response.status(404).json({message: "Nothing to update!"});
             }
 
             // Update user information
@@ -47,7 +47,7 @@ class UsersController{
             }
 
             // Send the succes response
-            return response.status(200).json({ message: "Username successfully updated", updatedUser: updatedUser });
+            return response.status(200).json({ message: "Username successfully updated!", updatedUser: updatedUser });
         } catch(error){
             // Send error response
             return response.status(400).json({ message: error.message })

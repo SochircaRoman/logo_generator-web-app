@@ -65,6 +65,11 @@
                 </div>
                 <input-item class="profile__input-item" type="text" name="email" placeholder="New Email"></input-item>
                 <btn-item class="settings__update-btn" btnName="Update Email"></btn-item>
+                <div class="message" v-if="message">
+                  <div :class="successful ? 'message__success' : 'message__alert'">
+                    {{ message }}
+                  </div>
+                </div>
               </div>
             </Form>
 
@@ -129,7 +134,7 @@ export default {
           this.message = data.message;
           this.successful = true;
           this.loading = false;
-          this.$router.go();
+          //this.$router.go();
         },
         (error) => {
           this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
@@ -234,6 +239,20 @@ export default {
 .message {
   margin: -10px;
   margin-bottom: 20px;
+}
+.message__success {
+  margin: 0 auto;
+  margin-top: 10px;
+  color: #04AA6D;
+  background-color: #d1dcd88a;
+  text-align: center;
+  padding: 30px;
+  font-size: 20px;
+}
+.message__alert {
+  margin-top: 10px;
+  color: #f23648;
+  text-align: center;
 }
 
 </style>
