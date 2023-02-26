@@ -91,6 +91,36 @@ class UsersService {
         return updatedUser;
     }
 
+    async updateEmail(newEmail, id) {
+
+      // Check if email is not identic
+      const checkUser = await User.findById(id)
+      if (newEmail == checkUser.email) {
+        throw new Error("Identic Email!");
+      }
+
+      // Check if email is unique
+      const checkEmail = await User.findOne({ email: newEmail })
+      if (checkEmail) {
+        throw new Error(`User with email '${newEmail}' already exists!`);
+      }
+
+      // Update the email
+      const updatedUser = await checkUser.updateOne({ email: newEmail });
+      if (!updatedUser) {
+        throw new Error("Email update error!");
+      }
+
+      // Check if email is updated
+      const checkUpdatedUser = await User.findOne({ email: newEmail })
+      if (!checkUpdatedUser) {
+        throw new Error("Email has not been updated!");
+      }
+      
+      // If all ok return updatedUser
+      return checkUpdatedUser;
+    }
+
     async deleteUser(id) {
 
       // Verify if id is valid and user exist

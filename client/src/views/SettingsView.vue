@@ -182,6 +182,22 @@ export default {
     updateEmail(user) {
       this.messages[2].visible = true;
       this.messages[2].text = "";
+      this.loading = true;
+      this.successful = false;
+
+      this.$store.dispatch("users/updateEmail", {newEmail: user.newEmail, id: this.currentUserId}).then(
+        (data) => {
+          this.messages[2].text = data.message;
+          this.successful = true;
+          this.loading = false;
+          setTimeout(() => {this.$router.go()}, 3000);
+        },
+        (error) => {
+          this.messages[2].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+          this.successful = false;
+          this.loading = false;
+        }
+      )
     }
   },
   mounted () {

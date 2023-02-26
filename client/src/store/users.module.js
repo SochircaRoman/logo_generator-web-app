@@ -26,6 +26,16 @@ export const users = {
         }
       );
     },
+    updateEmail({}, data) {
+      return UsersService.updateEmail(data.newEmail, data.id).then(
+        response => {
+          return Promise.resolve(response)
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
   },
   mutations: {
     updateSuccess(state) {

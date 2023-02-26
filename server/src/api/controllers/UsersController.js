@@ -76,6 +76,28 @@ class UsersController{
         }
     }
 
+    async updateEmail(request, response){
+        try{
+            // Get and verify if request is not empty
+            const { newEmail } = request.body.data
+            if (newEmail == "") {
+                return response.status(404).json({message: "Nothing to update!"});
+            }
+
+            // Update user information
+            const updatedUser = await UsersService.updateEmail(newEmail, request.params.id)
+            if (!updatedUser) {
+                return response.status(400).json({ message: "Email update error!" })
+            }
+
+            // Send the succes response
+            return response.status(200).json({ message: "Email successfully updated!", updatedUser: updatedUser });
+        } catch(error){
+            // Send error response
+            return response.status(400).json({ message: error.message })
+        }
+    }
+
     async deleteUser(request, response){
         try{
             // Delete user account

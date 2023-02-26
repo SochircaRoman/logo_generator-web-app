@@ -71,6 +71,25 @@ class UserService {
     return updatedUser.data;
   }
 
+  async updateEmail(newEmail, id) {
+    const updatedUser = await GenericService.request({
+      url: `users/updateUsername/${id}`,
+      method: 'patch',
+      data: {
+        newEmail: newEmail,
+      }
+    });
+
+    // Refresh user information
+    if (updatedUser.data.updatedUser) {
+      localStorage.removeItem("user");
+      localStorage.setItem("user", JSON.stringify(updatedUser.data.updatedUser));
+    }
+
+    // If all ok return
+    return updatedUser.data;
+  }
+
 }
 
 export default new UserService();
