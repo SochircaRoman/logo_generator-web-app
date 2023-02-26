@@ -125,6 +125,7 @@ export default {
           this.message = data.message;
           this.successful = true;
           this.loading = false;
+          this.$router.go();
         },
         (error) => {
           this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
