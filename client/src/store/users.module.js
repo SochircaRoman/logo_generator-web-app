@@ -6,6 +6,16 @@ const user = JSON.parse(localStorage.getItem('user'));
 export const users = {
   namespaced: true,
   actions: {
+    uploadProfilePicture({}, data) {
+      return UsersService.updateUsername(data.newUsername, data.id).then(
+        response => {
+          return Promise.resolve(response)
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
     updateUsername({}, data) {
       return UsersService.updateUsername(data.newUsername, data.id).then(
         response => {
