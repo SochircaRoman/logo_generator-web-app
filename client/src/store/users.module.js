@@ -6,8 +6,8 @@ const user = JSON.parse(localStorage.getItem('user'));
 export const users = {
   namespaced: true,
   actions: {
-    updateUsername({}, newUsername) {
-      return UsersService.updateUsername(newUsername, user._id).then(
+    updateUsername({}, data) {
+      return UsersService.updateUsername(data.newUsername, data.id).then(
         response => {
           return Promise.resolve(response)
         },

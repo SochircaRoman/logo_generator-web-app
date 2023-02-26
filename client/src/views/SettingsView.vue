@@ -81,7 +81,6 @@ import BtnItem from "../components/UI/btnItem.vue";
 import InputItem from "../components/UI/InputItem.vue";
 import { Form } from "vee-validate";
 import * as yup from "yup";
-import { toNumber } from "@vue/shared";
 export default {
   components: {
     BtnItem,
@@ -98,18 +97,18 @@ export default {
   computed: {
     usernameSchema() {
       return yup.object({
-        newUsername: yup.string().min(4).max(30).required("New Username is required!").label("New Username"),
+        newUsername: yup.string().min(4).max(30).required("Username is required!").label("Username"),
       })
     },
     passwordSchema() {
       return yup.object({
-        oldPassword: yup.string().min(6).max(20).required("Old Password is required!").label("Old Password"),
-        newPassword: yup.string().min(6).max(20).required("New Password is required!").label("New Password"),
+        oldPassword: yup.string().min(6).max(20).required("Password is required!").label("Password"),
+        newPassword: yup.string().min(6).max(20).required("Password is required!").label("Password"),
       })
     },
     emailSchema() {
       return yup.object({
-        email: yup.string().email().required("New Email is required!").label("New Email"),
+        email: yup.string().email().required("Email is required!").label("Email"),
       })
     },
     currentUser() {
@@ -125,7 +124,7 @@ export default {
       this.loading = true;
       this.successful = false;
 
-      this.$store.dispatch("users/updateUsername", user.newUsername).then(
+      this.$store.dispatch("users/updateUsername", {newUsername: user.newUsername, id: this.currentUserId}).then(
         (data) => {
           this.message = data.message;
           this.successful = true;
