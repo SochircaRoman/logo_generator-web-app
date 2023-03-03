@@ -1,4 +1,5 @@
 const UsersService = require('../services/UsersService');
+const UploadFile = require('../services/UploadFile');
 
 class UsersController{
 
@@ -92,6 +93,28 @@ class UsersController{
 
             // Send the succes response
             return response.status(200).json({ message: "Email successfully updated!", updatedUser: updatedUser });
+        } catch(error){
+            // Send error response
+            return response.status(400).json({ message: error.message })
+        }
+    }
+
+    async uploadFile(request, response){
+        try{
+            // Get and verify if request is not empty
+            const file = request.files.file
+            if (!file) {
+                return response.status(400).json({ message: "Photo not found!" })
+            }
+
+            // Update user profile photo
+            const updatedUser = await UploadFile.upload(file, request.params.id)
+            if (!updatedUser) {
+                return response.status(400).json({ message: "Profile photo update error!" });
+            }
+
+            // Send the succes response
+            return response.status(200).json({ message: "Profile photo successfully updated!", updatedUser: updatedUser });
         } catch(error){
             // Send error response
             return response.status(400).json({ message: error.message })

@@ -14,6 +14,7 @@ router.route('/:id').get(authorization.adminAuth).get(controller.getUser);
 router.route('/updateUsername/:id').get(authorization.userAuth).patch(controller.updateUsername);
 router.route('/updatePassword/:id').get(authorization.userAuth).patch(controller.updatePassword);
 router.route('/updateEmail/:id').get(authorization.userAuth).patch(controller.updateEmail);
+router.route('/upload/:id').post(controller.uploadFile);
 router.route('/deleteUser/:id').get(authorization.userAuth).delete(controller.deleteUser);
 
 

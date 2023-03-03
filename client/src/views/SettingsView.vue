@@ -165,7 +165,7 @@ export default {
         this.messages[3].visible = true;
         this.messages[3].text = "";
 
-        this.$store.dispatch("users/uploadFile", {file: this.selectedFile}).then(
+        this.$store.dispatch("users/uploadFile", {file: this.selectedFile, id: this.currentUserId}).then(
         (data) => {
           this.messages[3].text = data.message;
           this.successful = true;
