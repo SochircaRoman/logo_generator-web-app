@@ -4,7 +4,7 @@
 
       <nav class="header__nav">
         <ul class="header__list">
-          <li class="header__item"
+          <li class="header__item noselect"
             v-for="item in headerItems"
             :key="item"
             @click="handleRemoveBurger(); handleLoad()"
@@ -21,14 +21,14 @@
 
       <div v-if="!currentUser" class="header__authorization">
         <ul class="header__list">
-          <li class="header__item">
+          <li class="header__item noselect">
             <router-link to="/register" class="header__link">
               <img src="/png/register.png" alt="register">
               Register
             </router-link>
           </li>
           
-          <li class="header__item">
+          <li class="header__item noselect">
             <router-link to="/login" class="header__link">
               <img src="/png/login.png" alt="login">
               Login
@@ -40,11 +40,11 @@
       <div v-if="currentUser">
         <ul class="header__list">
 
-          <li class="header__item">
+          <li class="header__item noselect">
             <dropdown-item :username="currentUser.username" :items="items"></dropdown-item>
           </li>
 
-          <li class="header__item">
+          <li class="header__item noselect">
             <a @click.prevent="handleLogout" class="header__link">
               <img src="/png/logout.png" alt="">
               Logout
@@ -182,7 +182,7 @@ export default {
 
 .header__link {
   font-weight: 500;
-  font-size: 25px;
+  font-size: 22px;
   line-height: 29px;
   color: #000000;
   text-decoration: none;

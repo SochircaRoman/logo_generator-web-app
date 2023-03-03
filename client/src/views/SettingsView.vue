@@ -21,6 +21,11 @@
                   <btn-item @click="$refs.fileInput.click()" class="settings__select-btn" btnName="Select Picture"></btn-item>
                 </div>
                 <btn-item class="settings__update-btn" btnName="Update Picture"></btn-item>
+                <div class="message" v-if="messages[3].visible">
+                  <div :class="successful ? 'message__success' : 'message__alert'">
+                    {{ messages[3].text }}
+                  </div>
+                </div>
                 <div class="settings__upload-background">
                   <p class="settings__upload-info">Upload a new avatar. Larger image will be resized automatically.</p>
                   <p class="settings__upload-info">Maximum upload size is 1 MB</p>
@@ -154,12 +159,13 @@ export default {
       this.selectedFile = event.target.files[0];
       this.previewImage = URL.createObjectURL(this.selectedFile);
     },
-    updatePicture(file) {
-      console.log(file);
-      this.messages[3].visible = true;
-      this.messages[3].text = "";
+    updatePicture() {
+      
+      if (this.selectedFile.type == "image/png" || this.selectedFile.type == "image/jpeg" || this.selectedFile.type == "image/jpg") {
+        this.messages[3].visible = true;
+        this.messages[3].text = "";
 
-      this.$store.dispatch("users/uploadFile", {file: this.selectedFile}).then(
+        this.$store.dispatch("users/uploadFile", {file: this.selectedFile}).then(
         (data) => {
           this.messages[3].text = data.message;
           this.successful = true;
@@ -172,6 +178,10 @@ export default {
           this.loading = false;
         }
       )
+      } else {
+        this.messages[3].visible = true;
+        this.messages[3].text = "Invalid image format!";
+      }
     },
     updateUsername(user) {
       this.messages[0].visible = true;

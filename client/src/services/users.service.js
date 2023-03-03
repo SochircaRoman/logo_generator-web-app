@@ -33,14 +33,14 @@ class UserService {
   }
 
   async uploadFile(file) {
-
     // Create an Form Data object
     const formData = new FormData();
     formData.append("file", file);
 
     const uploadedFile = await GenericService.request({
       url: "users/upload",
-      method: 'post',
+      method: "post",
+      headers: "'Content-Type': 'multipart/form-data'",
       data: {
         file: formData,
       }
