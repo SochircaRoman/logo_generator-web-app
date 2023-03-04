@@ -13,7 +13,7 @@
           <hr>
 
           <div class="img_container">
-            <img src="png/avatar.png" alt="avatar" class="profile_img">
+            <img :src="currentUser['profilePic']" alt="avatar" class="profile_img">
           </div>
 
           <div class="profile__information">
@@ -108,6 +108,8 @@ export default {
 
 .profile_img {
   border-radius: 50%;
+  max-width: 100px;
+  min-height: 100px;
 }
 
 .profile__information-field {

@@ -7,7 +7,6 @@ export const users = {
   namespaced: true,
   actions: {
     uploadFile({}, data) {
-      console.log(data.file);
       return UsersService.uploadFile(data.file, data.id).then(
         response => {
           return Promise.resolve(response)

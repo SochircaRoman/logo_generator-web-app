@@ -13,25 +13,24 @@
 
             <hr>
 
-            <Form enctype="multipart/form-data" @submit="updatePicture">
-              <div class="settings__update-container">
-                <div class="img__container">
-                  <img class="profile__img" :src="previewImage" alt="avatar">
-                  <input class="profile__select" type="file" accept=".png, .jpg, .jpeg" @change="onFileSelected" ref="fileInput">
-                  <btn-item @click="$refs.fileInput.click()" class="settings__select-btn" btnName="Select Picture"></btn-item>
-                </div>
-                <btn-item class="settings__update-btn" btnName="Update Picture"></btn-item>
-                <div class="message" v-if="messages[3].visible">
-                  <div :class="successful ? 'message__success' : 'message__alert'">
-                    {{ messages[3].text }}
-                  </div>
-                </div>
-                <div class="settings__upload-background">
-                  <p class="settings__upload-info">Upload a new avatar. Larger image will be resized automatically.</p>
-                  <p class="settings__upload-info">Maximum upload size is 1 MB</p>
+            <div class="settings__update-container">
+              <div class="img__container">
+                <img v-if="!previewImage" class="profile__img" :src="currentUser['profilePic']" alt="avatar">
+                <img v-else class="profile__img" :src="previewImage" alt="avatar">
+                <input class="profile__select" type="file" accept=".png, .jpg, .jpeg" @change="onFileSelected" ref="fileInput">
+                <btn-item @click="$refs.fileInput.click()" class="settings__select-btn" btnName="Select Picture"></btn-item>
+              </div>
+              <btn-item @click="updatePicture()" class="settings__update-btn" btnName="Update Picture"></btn-item>
+              <div class="message" v-if="messages[3].visible">
+                <div :class="successful ? 'message__success' : 'message__alert'">
+                  {{ messages[3].text }}
                 </div>
               </div>
-            </Form>
+              <div class="settings__upload-background">
+                <p class="settings__upload-info">Upload a new avatar. Larger image will be resized automatically.</p>
+                <p class="settings__upload-info">Maximum upload size is 1 MB</p>
+              </div>
+            </div>
             
           
             <Form @submit="updateUsername" :validation-schema="usernameSchema">
@@ -105,7 +104,7 @@ export default {
   data() {
     return {
       selectedFile: null,
-      previewImage: "/png/avatar.png",
+      previewImage: "",
 
       successful: false,
       loading: false,
@@ -155,12 +154,10 @@ export default {
   },
   methods: {
     onFileSelected(event) {
-      console.log(event.target.files[0]);
       this.selectedFile = event.target.files[0];
       this.previewImage = URL.createObjectURL(this.selectedFile);
     },
     updatePicture() {
-      
       if (this.selectedFile.type == "image/png" || this.selectedFile.type == "image/jpeg" || this.selectedFile.type == "image/jpg") {
         this.messages[3].visible = true;
         this.messages[3].text = "";
@@ -170,7 +167,7 @@ export default {
           this.messages[3].text = data.message;
           this.successful = true;
           this.loading = false;
-          //setTimeout(() => {this.$router.go()}, 3000);
+          setTimeout(() => {this.$router.go()}, 3000);
         },
         (error) => {
           this.messages[3].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();

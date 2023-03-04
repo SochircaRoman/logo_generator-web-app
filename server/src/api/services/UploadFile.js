@@ -1,6 +1,5 @@
 const User = require("../../database/models/User");
-const uuid = require("uuid")
-const path = require("path")
+const path = require("path");
 
 class UploadFile {
 
@@ -19,21 +18,24 @@ class UploadFile {
       throw new Error("Invalid format!");
     }
 
-    // Generate a unique file path
-    const imageName = `${uuid.v4()}${extensionName}`
-    const imagePath = path.resolve("src/api/static", imageName)
+    // Create a unique file name using id
+    const imageName = `user_${id}.png`;
 
+    // Create a path for database
+    const databasePath = `${process.env.STATIC_IMAGE_PATH}${imageName}`
+    
     // Save the photo
+    const imagePath = path.resolve("src/api/static", imageName)
     file.mv(imagePath)
 
     // Update the user profilePath
-    const updatedUser = await checkUser.updateOne({ profilePic: imagePath });
+    const updatedUser = await checkUser.updateOne({ profilePic: databasePath });
     if (!updatedUser) {
       throw new Error("Photo update error!");
     }
 
     // Check if email is updated
-    const checkUpdatedUser = await User.findOne({ profilePic: imagePath })
+    const checkUpdatedUser = await User.findOne({ profilePic: databasePath })
     if (!checkUpdatedUser) {
       throw new Error("Photo has not been updated!");
     }

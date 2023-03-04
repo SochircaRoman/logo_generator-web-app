@@ -37,7 +37,7 @@ class UserService {
     const formData = new FormData();
     formData.append("file", file);
 
-    const uploadedFile = await GenericService.request({
+    const updatedUser = await GenericService.request({
       url: `users/upload/${id}`,
       method: "post",
       file: formData,
@@ -46,7 +46,14 @@ class UserService {
       },
     });
 
-    return uploadedFile.data;
+    // Refresh user information
+    if (updatedUser.data.updatedUser) {
+      localStorage.removeItem("user");
+      localStorage.setItem("user", JSON.stringify(updatedUser.data.updatedUser));
+    }
+
+    // If all ok return
+    return updatedUser.data;
   }
 
   async updateUsername(newUsername, id) {
