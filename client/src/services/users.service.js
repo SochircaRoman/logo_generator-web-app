@@ -6,8 +6,8 @@ class UserService {
     const content = GenericService.request({
       url: 'users',
       method: 'get',
-      headers: authHeader(),
       data: {},
+      headers: authHeader(),
     });
     return content;
   }
@@ -16,8 +16,8 @@ class UserService {
     const content = GenericService.request({
       url: `user/${id}`,
       method: 'get',
-      headers: authHeader(),
       data: {},
+      headers: authHeader(),
     });
     return content;
   }
@@ -26,8 +26,8 @@ class UserService {
     const content = GenericService.request({
       url: `user/${id}`,
       method: 'get',
-      headers: authHeader(),
-      data: {}
+      data: {},
+      headers: authHeader()
     });
     return content;
   }
@@ -37,10 +37,10 @@ class UserService {
     const formData = new FormData();
     formData.append("file", file);
 
-    const updatedUser = await GenericService.request({
+    const updatedUser = await GenericService.upload({
       url: `users/upload/${id}`,
       method: "post",
-      file: formData,
+      files: formData,
       headers: {
         "Content-Type": "multipart/form-data"
       },

@@ -3,8 +3,12 @@ import axios from "axios";
 const API_URL = "http://localhost:3000/api";
 
 class GenericService {
-  async request({ url, method, file, headers, data, }) {
-    const response = await axios[method](`${API_URL}/${url}`, file, { data }, { headers: headers });
+  async request({ url, method, data, headers }) {
+    const response = await axios[method](`${API_URL}/${url}`, { data }, { headers });
+    return response;
+  }
+  async upload({ url, method, files, headers }) {
+    const response = await axios[method](`${API_URL}/${url}`, files, { headers });
     return response;
   }
 }
