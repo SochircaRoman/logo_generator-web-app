@@ -22,7 +22,8 @@ app.use(fileUpload({
 }));
 
 app.use(express.json());
-app.use(express.static("src/api/static"))
+app.use(express.static("src/jsmodel"));
+app.use(express.static("src/api/static"));
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/', router);

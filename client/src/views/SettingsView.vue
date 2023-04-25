@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import BtnItem from "../components/UI/btnItem.vue";
+import BtnItem from "../components/UI/BtnItem.vue";
 import InputItem from "../components/UI/InputItem.vue";
 import { Form } from "vee-validate";
 import * as yup from "yup";

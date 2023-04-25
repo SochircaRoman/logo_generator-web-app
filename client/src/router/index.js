@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue';
 import AboutView from '../views/AboutView.vue';
 import RegistrationView from '../views/RegistrationView.vue';
 import LoginView from '../views/LoginView.vue';
+import GeneratorView from '../views/GeneratorView.vue';
 
 // lazy-loaded
 const Profile = () => import("../views/ProfileView.vue");
@@ -34,6 +35,11 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView
+    },
+    {
+      path: '/generator',
+      name: 'generator',
+      component: GeneratorView
     },
     {
       path: '/profile',

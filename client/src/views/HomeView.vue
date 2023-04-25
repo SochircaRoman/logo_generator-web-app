@@ -21,7 +21,9 @@
           <logos-example :categories="categories"></logos-example>
         </div>
         <div class="home__btn">
-          <btn-item btnName="Generate logo"></btn-item>
+          <router-link to="/generator" class="">
+            <btn-item btnName="Generate logo"></btn-item>
+          </router-link>
         </div>
       </section>
       
@@ -31,7 +33,7 @@
 
 <script>
 import LogosExample from '../components/Home/LogosExample.vue';
-import BtnItem from '../components/UI/btnItem.vue';
+import BtnItem from '../components/UI/BtnItem.vue';
 
 export default {
   components: {
