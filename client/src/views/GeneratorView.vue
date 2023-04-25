@@ -45,9 +45,10 @@ export default {
 
       this.$store.dispatch("users/generateLogo").then(
         (data) => {
+          //console.log(data);
           const canvas = document.getElementById("the_canvas");
-          canvas.width = data.shape.width
-          canvas.height = data.shape.height
+          canvas.width = data.shape[0];
+          canvas.height = data.shape[1];
           tf.browser.toPixels(data, canvas);
           
           //this.message = data.message;
@@ -55,7 +56,7 @@ export default {
           this.loading = false;
         },
         (error) => {
-          //this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+          this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
           this.successful = false;
           this.loading = false;
         }
@@ -92,9 +93,8 @@ export default {
 }
 
 .canvas_wrapper {
-    /* From MGM */
-    width: 32px;
-    height: 32px;
+    width: 64px;
+    height: 64px;
     position: relative;
     outline: 3px dashed #ddd;
     margin: 0 auto 40px auto;

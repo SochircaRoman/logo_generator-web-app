@@ -43,9 +43,13 @@ class UserService {
     // Generate random input points
     const latent_points = tf.randomNormal([1, 100]);
 
-
-
+    // Make prediction
     const result = model.predict(latent_points).squeeze().mul(tf.scalar(127)).add(tf.scalar(127)).asType('int32');
+
+
+    const size = result.shape[0];
+    const draw_multiplier = 2;
+    return result.expandDims(2).tile([1, 1, draw_multiplier, 1]).reshape([size, size * draw_multiplier, 3]).expandDims(1).tile([1, draw_multiplier, 1, 1]).reshape([size * draw_multiplier, size * draw_multiplier, 3]);
 
     //const canvas = document.createElement('canvas');
     //canvas.width = y.shape.width
