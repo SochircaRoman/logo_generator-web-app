@@ -1,6 +1,5 @@
 const UsersService = require('../services/UsersService');
 const UploadFile = require('../services/UploadFile');
-const GeneratorLogo = require('../services/GeneratorLogo');
 
 class UsersController{
 
