@@ -43,7 +43,9 @@
           </div>
 
           <div class="about__btn">
-            <btn-item btnName="Generate logo"></btn-item>
+            <router-link to="/generator" class="">
+              <btn-item btnName="Generate logo"></btn-item>
+            </router-link>
           </div>
         </div>
       </section>
@@ -54,7 +56,7 @@
 </template>
 
 <script>
-import BtnItem from '../components/UI/btnItem.vue';
+import BtnItem from '../components/UI/BtnItem.vue';
 
 export default {
   components: {
