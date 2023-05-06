@@ -1,4 +1,5 @@
 import UsersService from "../services/users.service";
+import GeneratorService from "../services/generator.service";
 
 // Get user from localStorage
 const user = JSON.parse(localStorage.getItem('user'));
@@ -7,7 +8,7 @@ export const users = {
   namespaced: true,
   actions: {
     generateLogo({}) {
-      return UsersService.generateLogo().then(
+      return GeneratorService.generateLogo().then(
         response => {
           return Promise.resolve(response)
         },

@@ -95,6 +95,9 @@ export default {
           this.message = data.message;
           this.successful = true;
           this.loading = false;
+          setTimeout(() => {
+            this.$router.push("/login");
+          }, 3000)
         },
         (error) => {
           this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
@@ -130,6 +133,13 @@ export default {
 .message {
   margin: -10px;
   margin-bottom: 20px;
+}
+
+.message__success {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 25px;
+  color: green;
 }
 
 .other_info-text {

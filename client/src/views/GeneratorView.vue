@@ -45,13 +45,13 @@ export default {
 
       this.$store.dispatch("users/generateLogo").then(
         (data) => {
-          //console.log(data);
+          console.log(data);
           const canvas = document.getElementById("the_canvas");
           canvas.width = data.shape[0];
           canvas.height = data.shape[1];
           tf.browser.toPixels(data, canvas);
           
-          //this.message = data.message;
+          this.message = data.message;
           this.successful = true;
           this.loading = false;
         },
