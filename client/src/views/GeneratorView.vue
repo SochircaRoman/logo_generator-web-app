@@ -19,7 +19,9 @@
 
         <div class="generator__btn noselect">
           <btn-item @click="generate" btnName="Generate" class="btn"></btn-item>
-          <btn-item btnName="Download" class="btn"></btn-item>
+          <a :href="logoLink" download="generated_logo.png">
+            <btn-item @click="download" btnName="Download" class="btn"></btn-item>
+          </a>
         </div>
 
       </div>
@@ -37,6 +39,12 @@ export default {
   components: {
     BtnItem,
   },
+  data() {
+    return {
+      logoLink: null,
+      generatedLogo: false,
+    }
+  },
   methods: {
     generate() {
       this.message = "";
@@ -45,12 +53,13 @@ export default {
 
       this.$store.dispatch("users/generateLogo").then(
         (data) => {
-          console.log(data);
+          //console.log(data);
           const canvas = document.getElementById("the_canvas");
           canvas.width = data.shape[0];
           canvas.height = data.shape[1];
           tf.browser.toPixels(data, canvas);
           
+          this.generatedLogo = true;
           this.message = data.message;
           this.successful = true;
           this.loading = false;
@@ -61,6 +70,11 @@ export default {
           this.loading = false;
         }
       )
+    },
+    download() {
+      if (this.generatedLogo) {
+        this.logoLink = document.getElementById('the_canvas').toDataURL("image/png");
+      }
     }
   }
 }
