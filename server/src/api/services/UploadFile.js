@@ -25,7 +25,7 @@ class UploadFile {
     const databasePath = `${process.env.STATIC_IMAGE_PATH}${imageName}`
     
     // Save the photo
-    const imagePath = path.resolve("src/api/static", imageName)
+    const imagePath = path.resolve("src/api/static", imageName);
     file.mv(imagePath)
 
     // Update the user profilePath

@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "https://us-central1-logogenerator-730da.cloudfunctions.net/app/api";
+//const API_URL = "https://us-central1-logogenerator-730da.cloudfunctions.net/app/api";
+const API_URL = "http://localhost:3000/api";
 
 class GenericService {
   async request({ url, method, data, headers }) {
