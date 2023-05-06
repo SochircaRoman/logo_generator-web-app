@@ -3,7 +3,7 @@
   <div class="container">
     <div class="top">
       <div class="top__content">
-        <img src="png/succes.png" alt="SUCCES">
+        <img src="/png/succes.png" alt="SUCCES">
         <h3 v-if="text" class="top__text"> {{ text }}</h3>
         <h3 v-else class="top__text">Succes!</h3>
       </div>

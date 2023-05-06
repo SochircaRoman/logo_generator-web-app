@@ -17,7 +17,7 @@
           <hr>
 
           <div class="img_container">
-            <img src="png/avatar.png" alt="avatar" class="profile_img">
+            <img src="/png/avatar.png" alt="avatar" class="profile_img">
           </div>
 
           <div class="input_container">
