@@ -1,6 +1,6 @@
 import * as tf from '@tensorflow/tfjs';
 
-const MODEL_API = "http://localhost:3000/model.json";
+const MODEL_API = "https://us-central1-logogenerator-730da.cloudfunctions.net/app/model.json";
 
 class GeneratorService {
 
