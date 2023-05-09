@@ -155,6 +155,7 @@ export default {
   methods: {
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
+      console.log(event.target.files);
       this.previewImage = URL.createObjectURL(this.selectedFile);
     },
     updatePicture() {

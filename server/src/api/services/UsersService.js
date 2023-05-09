@@ -111,11 +111,34 @@ class UsersService {
         throw new Error("Email update error!");
       }
 
-      console.log(newEmail)
       // Check if email is updated
       const checkUpdatedUser = await User.findOne({ email: newEmail })
       if (!checkUpdatedUser) {
         throw new Error("Email has not been updated!");
+      }
+      
+      // If all ok return updatedUser
+      return checkUpdatedUser;
+    }
+
+    async updateProfilePic(newPath, id) {
+      
+      // Check if user exist
+      const checkUser = await User.findById(id)
+      if (!checkUser) {
+        throw new Error(`User with id '${id}' not found!`);
+      }
+
+      // Update the path
+      const updatedUser = await checkUser.updateOne({ profilePic: newPath });
+      if (!updatedUser) {
+        throw new Error("Profile picture update error!");
+      }
+
+      // Check if path is updated
+      const checkUpdatedUser = await User.findOne({ profilePic: newPath })
+      if (!checkUpdatedUser) {
+        throw new Error("Profile picture has not been updated!");
       }
       
       // If all ok return updatedUser

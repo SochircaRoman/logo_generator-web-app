@@ -99,6 +99,29 @@ class UsersController{
         }
     }
 
+    async updateProfilePic(request, response){
+        try{
+            // Get and verify if request is not empty
+            const { newPath } = request.body.data;
+            if (newPath == "") {
+                return response.status(404).json({message: "Nothing to update!"});
+            }
+
+            // Update user information
+            const updatedUser = await UsersService.updateProfilePic(newPath, request.params.id)
+            if (!updatedUser) {
+                return response.status(400).json({ message: "Profile picture update error!" })
+            }
+
+            // Send the succes response
+            return response.status(200).json({ message: "Profile picture successfully updated!", updatedUser: updatedUser });
+        } catch(error){
+            // Send error response
+            return response.status(400).json({ message: error.message })
+        }
+    }
+
+    /*
     async uploadFile(request, response){
         try{
             // Get and verify if request is not empty
@@ -120,6 +143,7 @@ class UsersController{
             return response.status(400).json({ message: error.message })
         }
     }
+    */
 
     async deleteUser(request, response){
         try{
