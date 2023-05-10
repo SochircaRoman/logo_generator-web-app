@@ -1,7 +1,7 @@
 <template>
 
   <div class="btn__item">
-    <button class="submit_btn">
+    <button class="submit_btn" :class="red?'red':'green'">
       <span>{{ btnName }}</span>
     </button>
   </div>
@@ -10,14 +10,13 @@
 
 <script>
 export default {
-  props: ["btnName"]
+  props: ["btnName", "red"],
 }
 </script>
 
 <style>
 
 .submit_btn {
-  background-color: #04AA6D;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -25,6 +24,14 @@ export default {
   cursor: pointer;
   width: 100%;
   font-size: 20px;
+}
+
+.green {
+  background-color: #04AA6D;
+}
+
+.red {
+  background-color: red;
 }
 
 .submit_btn:hover {

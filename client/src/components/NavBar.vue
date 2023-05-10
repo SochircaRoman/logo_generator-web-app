@@ -87,7 +87,7 @@ export default {
         },
         {
           title: "Logos",
-          link: "/generator"
+          link: "/logos"
         }
       ]
     }

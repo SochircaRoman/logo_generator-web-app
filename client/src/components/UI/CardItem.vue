@@ -14,8 +14,8 @@
     <hr class="card__line">
 
     <div class="card__btns">
-      <button class="card__btns-btn download">Download</button>
-      <button class="card__btns-btn delete">Delete</button>
+      <btn-item btnName="Download" class="btn"></btn-item>
+      <btn-item btnName="Delete" :red="true" class="btn"></btn-item>
     </div>
 
   </div>
@@ -27,22 +27,31 @@
 </template>
 
 <script>
+import BtnItem from '../UI/BtnItem.vue';
+
 export default {
-  props: ["btnName", "link", "information", ]
+  components: {
+    BtnItem,
+  },
+  props: ["link", "description", "information"],
 }
 </script>
 
 <style>
+.logo__card {
+  max-width: 200px;
+  max-height: 200px;
+}
+.card__img-wrapper {
+  text-align: center;
+}
 
+.card__btns {
+  display: inline;
+}
 
-.card__btns-btn {
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  font-size: 20px;
+.btn {
+  display: inline-block;
 }
 .card__btns-btn:hover {
   opacity: 0.8;

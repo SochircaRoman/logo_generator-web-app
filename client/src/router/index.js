@@ -8,6 +8,7 @@ import GeneratorView from '../views/GeneratorView.vue';
 // lazy-loaded
 const Profile = () => import("../views/ProfileView.vue");
 const Settings = () => import("../views/SettingsView.vue");
+const Logos = () => import("../views/LogosView.vue");
 
 const router = createRouter({
   history: createWebHistory(),
@@ -52,6 +53,12 @@ const router = createRouter({
       name: 'settings',
       // lazy-loaded
       component: Settings,
+    },
+    {
+      path: '/logos',
+      name: 'logos',
+      // lazy-loaded
+      component: Logos,
     },
   ]
 })
