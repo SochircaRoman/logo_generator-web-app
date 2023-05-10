@@ -1,5 +1,4 @@
 const UsersService = require('../services/UsersService');
-const UploadFile = require('../services/UploadFile');
 
 class UsersController{
 

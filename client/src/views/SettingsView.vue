@@ -92,12 +92,14 @@
 
 <script>
 import BtnItem from "../components/UI/BtnItem.vue";
+import LoadingItem from "../components/UI/LoadingItem.vue";
 import InputItem from "../components/UI/InputItem.vue";
 import { Form } from "vee-validate";
 import * as yup from "yup";
 export default {
   components: {
     BtnItem,
+    LoadingItem,
     InputItem,
     Form,
   },
@@ -155,7 +157,6 @@ export default {
   methods: {
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
-      console.log(event.target.files);
       this.previewImage = URL.createObjectURL(this.selectedFile);
     },
     updatePicture() {
