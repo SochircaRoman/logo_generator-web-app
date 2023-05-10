@@ -12,19 +12,22 @@
 
 <style>
 .loading {
-  position: absolute;
-  z-index: 1000;
-  background-color: white;
-  height: 100vh;
-  width: 100vh;
+  
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color:aliceblue;
+  opacity: 0.5;
+  width: 100%;
+  height: 100%; 
+  z-index: 10;
+  position: fixed;
   text-align: center;
-  line-height: 100vh;
 }
 
 .loading__img {
-  position: relative;
-  margin: auto;
-  margin-top: 20%;
+  margin-top: 200px;
 }
 
 </style>

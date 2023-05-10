@@ -6,81 +6,83 @@
       <div class="wrapper">
         <div class="settings__content-container">
 
+          <loading-item v-if="loading"></loading-item>
           
-            <div class="settings__info">
-              <h1 class="settings__title">Edit Profile</h1>
+          <div class="settings__info">
+            <h1 class="settings__title">Edit Profile</h1>
+          </div>
+
+          <hr>
+
+          <div class="settings__update-container">
+            <div class="img__container">
+              
+              <img v-if="!previewImage" class="profile__img" :src="currentUser['profilePic']" alt="avatar">
+              <img v-else class="profile__img" :src="previewImage" alt="avatar">
+              <input class="profile__select" type="file" accept=".png, .jpg, .jpeg" @change="onFileSelected" ref="fileInput">
+              <btn-item @click="$refs.fileInput.click()" class="settings__select-btn" btnName="Select Picture"></btn-item>
             </div>
-
-            <hr>
-
+            <btn-item @click="updatePicture()" class="settings__update-btn" btnName="Update Picture"></btn-item>
+            <div class="message" v-if="messages[3].visible">
+              <div :class="successful ? 'message__success' : 'message__alert'">
+                {{ messages[3].text }}
+              </div>
+            </div>
+            <div class="settings__upload-background">
+              <p class="settings__upload-info">Upload a new avatar. Larger image will be resized automatically.</p>
+              <p class="settings__upload-info">Maximum upload size is 1 MB</p>
+            </div>
+          </div>
+          
+        
+          <Form @submit="updateUsername" :validation-schema="usernameSchema">
             <div class="settings__update-container">
-              <div class="img__container">
-                <img v-if="!previewImage" class="profile__img" :src="currentUser['profilePic']" alt="avatar">
-                <img v-else class="profile__img" :src="previewImage" alt="avatar">
-                <input class="profile__select" type="file" accept=".png, .jpg, .jpeg" @change="onFileSelected" ref="fileInput">
-                <btn-item @click="$refs.fileInput.click()" class="settings__select-btn" btnName="Select Picture"></btn-item>
+              <div class="profile__information-field">
+                <div class="field__name">Username:</div>
+                <div class="field__data">{{ currentUser.username }}</div>
               </div>
-              <btn-item @click="updatePicture()" class="settings__update-btn" btnName="Update Picture"></btn-item>
-              <div class="message" v-if="messages[3].visible">
+              <input-item class="profile__input-item" type="text" name="newUsername" placeholder="New Username"></input-item>
+              <btn-item class="settings__update-btn" btnName="Update Username"></btn-item>
+              <div class="message" v-if="messages[0].visible">
                 <div :class="successful ? 'message__success' : 'message__alert'">
-                  {{ messages[3].text }}
+                  {{ messages[0].text }}
                 </div>
-              </div>
-              <div class="settings__upload-background">
-                <p class="settings__upload-info">Upload a new avatar. Larger image will be resized automatically.</p>
-                <p class="settings__upload-info">Maximum upload size is 1 MB</p>
               </div>
             </div>
-            
-          
-            <Form @submit="updateUsername" :validation-schema="usernameSchema">
-              <div class="settings__update-container">
-                <div class="profile__information-field">
-                  <div class="field__name">Username:</div>
-                  <div class="field__data">{{ currentUser.username }}</div>
-                </div>
-                <input-item class="profile__input-item" type="text" name="newUsername" placeholder="New Username"></input-item>
-                <btn-item class="settings__update-btn" btnName="Update Username"></btn-item>
-                <div class="message" v-if="messages[0].visible">
-                  <div :class="successful ? 'message__success' : 'message__alert'">
-                    {{ messages[0].text }}
-                  </div>
-                </div>
-              </div>
-            </Form>
+          </Form>
 
-            <Form @submit="updatePassword" :validation-schema="passwordSchema">
-              <div class="settings__update-container">
-                <div class="profile__information-field">
-                  <div class="field__name">Password:</div>
-                  <div class="field__data">********</div>
-                </div>
-                <input-item class="profile__input-item" type="password" name="oldPassword" placeholder="Old Password"></input-item>
-                <input-item class="profile__input-item" type="password" name="newPassword" placeholder="New Password"></input-item>
-                <btn-item class="settings__update-btn" btnName="Update Password"></btn-item>
-                <div class="message" v-if="messages[1].visible">
-                  <div :class="successful ? 'message__success' : 'message__alert'">
-                    {{ messages[1].text }}
-                  </div>
+          <Form @submit="updatePassword" :validation-schema="passwordSchema">
+            <div class="settings__update-container">
+              <div class="profile__information-field">
+                <div class="field__name">Password:</div>
+                <div class="field__data">********</div>
+              </div>
+              <input-item class="profile__input-item" type="password" name="oldPassword" placeholder="Old Password"></input-item>
+              <input-item class="profile__input-item" type="password" name="newPassword" placeholder="New Password"></input-item>
+              <btn-item class="settings__update-btn" btnName="Update Password"></btn-item>
+              <div class="message" v-if="messages[1].visible">
+                <div :class="successful ? 'message__success' : 'message__alert'">
+                  {{ messages[1].text }}
                 </div>
               </div>
-            </Form>
+            </div>
+          </Form>
 
-            <Form @submit="updateEmail" :validation-schema="emailSchema">
-              <div class="settings__update-container">
-                <div class="profile__information-field">
-                  <div class="field__name">Email:</div>
-                  <div class="field__data">{{ currentUser.email }}</div>
-                </div>
-                <input-item class="profile__input-item" type="text" name="newEmail" placeholder="New Email"></input-item>
-                <btn-item class="settings__update-btn" btnName="Update Email"></btn-item>
-                <div class="message" v-if="messages[2].visible">
-                  <div :class="successful ? 'message__success' : 'message__alert'">
-                    {{ messages[2].text }}
-                  </div>
+          <Form @submit="updateEmail" :validation-schema="emailSchema">
+            <div class="settings__update-container">
+              <div class="profile__information-field">
+                <div class="field__name">Email:</div>
+                <div class="field__data">{{ currentUser.email }}</div>
+              </div>
+              <input-item class="profile__input-item" type="text" name="newEmail" placeholder="New Email"></input-item>
+              <btn-item class="settings__update-btn" btnName="Update Email"></btn-item>
+              <div class="message" v-if="messages[2].visible">
+                <div :class="successful ? 'message__success' : 'message__alert'">
+                  {{ messages[2].text }}
                 </div>
               </div>
-            </Form>
+            </div>
+          </Form>
 
         </div>
       </div>
