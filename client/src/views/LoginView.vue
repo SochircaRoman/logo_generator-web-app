@@ -4,6 +4,8 @@
     <section class="login__content">
       <div class="wrapper">
 
+        <loading-item v-if="loading"></loading-item>
+
         <div v-if="loginStatus" class="succes_popup">
           <succes-item text="Succes Login!"></succes-item>
         </div>
@@ -59,6 +61,7 @@ import { Form } from "vee-validate";
 import InputItem from "../components/UI/InputItem.vue";
 import SuccesItem from "../components/UI/SuccesItem.vue";
 import BtnItem from "../components/UI/BtnItem.vue"
+import LoadingItem from "../components/UI/LoadingItem.vue";
 import * as yup from "yup";
 
 export default {
@@ -68,6 +71,7 @@ export default {
     InputItem,
     SuccesItem,
     BtnItem,
+    LoadingItem,
   },
   data: () => ({
     loading: false,
@@ -97,6 +101,7 @@ export default {
 
       this.$store.dispatch("auth/login", user).then(
         () => {
+          this.loading = false;
           this.loginStatus = true;
           setTimeout(() => {
             this.$router.push("/profile");
@@ -104,7 +109,6 @@ export default {
         },
         (error) => {
           this.loading = false;
-          console.log(error);
           this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
         }
       )

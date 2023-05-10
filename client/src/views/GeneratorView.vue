@@ -1,6 +1,8 @@
 <template>
   
   <main class="generator">
+
+    <loading-item v-if="loading"></loading-item>
     
     <section class="generator__top">
       <div class="wrapper">
@@ -34,15 +36,19 @@
 <script>
 import * as tf from '@tensorflow/tfjs';
 import BtnItem from '../components/UI/BtnItem.vue';
+import LoadingItem from "../components/UI/LoadingItem.vue";
 
 export default {
   components: {
     BtnItem,
+    LoadingItem,
   },
   data() {
     return {
       logoLink: null,
       generatedLogo: false,
+      successful: false,
+      loading: false,
     }
   },
   methods: {
@@ -53,7 +59,6 @@ export default {
 
       this.$store.dispatch("users/generateLogo").then(
         (data) => {
-          //console.log(data);
           const canvas = document.getElementById("the_canvas");
           canvas.width = data.shape[0];
           canvas.height = data.shape[1];

@@ -166,6 +166,9 @@ export default {
         this.messages[3].visible = true;
         this.messages[3].text = "";
 
+        this.loading = true;
+        this.successful = false;
+
         this.$store.dispatch("users/uploadFile", {file: this.selectedFile, id: this.currentUserId}).then(
         (data) => {
           this.messages[3].text = data.message;
@@ -217,7 +220,7 @@ export default {
           this.messages[1].text = data.message;
           this.successful = true;
           this.loading = false;
-          this.$router.go();
+          setTimeout(() => {this.$router.go()}, 3000);
         },
         (error) => {
           this.messages[1].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();

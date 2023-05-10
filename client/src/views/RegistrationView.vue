@@ -4,6 +4,8 @@
     <section class="register__content">
       <div class="wrapper">
 
+        <loading-item v-if="loading"></loading-item>
+
         <Form @submit="handleRegister" :validation-schema="schema">
 
           <div class="registration__info">
@@ -51,6 +53,7 @@
 import { Form } from "vee-validate";
 import InputItem from "../components/UI/InputItem.vue";
 import BtnItem from "../components/UI/BtnItem.vue";
+import LoadingItem from "../components/UI/LoadingItem.vue";
 import * as yup from "yup";
 
 export default {
@@ -59,6 +62,7 @@ export default {
     Form,
     InputItem,
     BtnItem,
+    LoadingItem,
   },
   data: () => ({
     successful: false,
