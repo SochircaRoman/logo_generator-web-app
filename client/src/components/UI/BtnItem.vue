@@ -24,18 +24,24 @@ export default {
   cursor: pointer;
   width: 100%;
   font-size: 20px;
+  transition: background-color 0.3s ease;
 }
 
 .green {
   background-color: #04AA6D;
+  
+}
+.green:hover {
+  background-color: #038556;
 }
 
 .red {
-  background-color: red;
+  background-color: #f44336;
+}
+.red:hover {
+  background-color: #d32f2f;
 }
 
-.submit_btn:hover {
-  opacity: 0.8;
-}
+
 
 </style>

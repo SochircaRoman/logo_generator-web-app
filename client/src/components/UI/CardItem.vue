@@ -14,8 +14,8 @@
     <hr class="card__line">
 
     <div class="card__btns">
-      <btn-item btnName="Download" class="btn"></btn-item>
       <btn-item btnName="Delete" :red="true" class="btn"></btn-item>
+      <btn-item btnName="Download" class="btn"></btn-item>
     </div>
 
   </div>
@@ -39,28 +39,25 @@ export default {
 
 <style>
 .logo__card {
-  max-width: 200px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
   max-height: 200px;
+  padding: 20px;
 }
 .card__img-wrapper {
   text-align: center;
 }
 
 .card__btns {
-  display: inline;
+  display: flex;
+  justify-content: space-between;
 }
 
 .btn {
-  display: inline-block;
-}
-.card__btns-btn:hover {
-  opacity: 0.8;
-}
-
-.download {
-  background-color: #04AA6D;
-}
-.delete {
-  background-color: red;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  font-size: 20px;
 }
 </style>
