@@ -3,7 +3,7 @@
     <nav-bar v-if="currentRouteName != 'load'"></nav-bar>
 
     <div>
-    <router-view />
+        <router-view />
     </div>
 
     <footer-bar v-if="currentRouteName != 'load'"></footer-bar>
@@ -399,6 +399,5 @@ body {
   padding: 0 15px;
 }
 /* WRAPPER END */
-
 </style>
 
