@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
   profilePic: {
     type: String,
     required: false,
-    default: "",
+    default: "https://firebasestorage.googleapis.com/v0/b/logogenerator-730da.appspot.com/o/avatars%2Fdefault.jpg?alt=media&token=2122118f-b3e8-40ff-85c5-acaabb0f4fa7",
   },
   adminRoot: {
     type: Boolean,
