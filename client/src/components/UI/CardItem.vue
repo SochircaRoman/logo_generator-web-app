@@ -8,7 +8,7 @@
     </div>
 
     <div class="card__information">
-      <div class="information">{{ information }}</div>
+      <div class="information">Size: {{ information }}</div>
     </div>
 
     <hr class="card__line">
@@ -17,10 +17,6 @@
       <btn-item btnName="Delete" :red="true" class="btn"></btn-item>
       <btn-item btnName="Download" class="btn"></btn-item>
     </div>
-
-  </div>
-
-  <div class="card__item">
 
   </div>
 
@@ -41,23 +37,31 @@ export default {
 .logo__card {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  max-height: 200px;
-  padding: 20px;
 }
+
+.img {
+  margin-bottom: 10px;
+}
+
 .card__img-wrapper {
+  margin: 15px 0 30px 0;
   text-align: center;
 }
 
-.card__btns {
-  display: flex;
-  justify-content: space-between;
+.card__line {
+  max-width: 90%;
+}
+
+.information {
+  margin: 0 0 5px 15px;
+  font-weight: bold;
+}
+
+.img__description {
+  font-style: italic;
 }
 
 .btn {
-  padding: 0;
-  margin: 0;
-  width: auto;
-  font-size: 20px;
+  margin: 0 8px 5px 8px;
 }
 </style>

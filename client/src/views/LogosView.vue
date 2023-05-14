@@ -3,21 +3,26 @@
   <main class="logos">
 
     <loading-item v-if="loading"></loading-item>
-    
-    <section class="logos__top">
+
+    <section class="logos__content">
       <div class="wrapper">
-        <h1 class="logos__text">Logo gallery storage</h1>
-      </div>
-    </section>
 
-    <section class="logos__middle">
-      <div class="logos__middle-content">
+        <div class="logos__top">
+          <h1 class="logos__text">Logo gallery storage</h1>
+        </div>
 
-        <card-item link="/png/logo.png" description="This is a logo description" information="27.1 KB" ></card-item>
+        <div class="logos__middle">
 
-      </div>
-    </section> 
-      
+          <card-item link="/png/logo.png" description="This is a logo description" information="27.1 KB" ></card-item>
+          <card-item link="/png/logo.png" description="This is a logo description" information="27.1 KB" ></card-item>
+          <card-item link="/png/logo.png" description="This is a logo description" information="27.1 KB" ></card-item>
+          <card-item link="/png/logo.png" description="This is a logo description" information="27.1 KB" ></card-item>
+
+        </div>
+
+      </div> 
+    </section>  
+
   </main>  
 
 </template>
@@ -79,6 +84,11 @@ export default {
 }
 
 .logos__middle {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 20px;
+
   margin-top: 120px;
   margin-bottom: 150px;
 }
