@@ -3,6 +3,7 @@
     <div class="header__wrapper">
 
       <nav class="header__nav">
+
         <ul class="header__list">
           <li class="header__item noselect"
             v-for="item in headerItems"

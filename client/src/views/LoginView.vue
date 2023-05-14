@@ -121,7 +121,7 @@ export default {
 <style scoped>
 .login__content {
   margin-top: 50px;
-  margin-bottom: 100px;
+  margin-bottom: 120px;
 }
 
 .wrapper {
