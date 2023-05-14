@@ -1,6 +1,7 @@
 import GenericService from './generic.service';
 import authHeader from './auth-header';
 import {storage, uploadBytes, ref, getDownloadURL} from '../firebase/init';
+import {v4 as uuidv4} from 'uuid';
 
 class UserService {
   getPublicContent() {
@@ -87,6 +88,43 @@ class UserService {
 
     // If all ok return
     return updatedUser.data;
+  }
+
+  async saveLogo(file, id) {
+
+    // Points to the root reference
+    const storageRef = ref(storage);
+    
+    // Points to 'logos'
+    const imagesRef = ref(storageRef, 'logos');
+
+    // Generate a unique uuid
+    const imageName = `logo_${uuidv4()}.png`;
+    const spaceRef = ref(imagesRef, imageName);
+
+    uploadBytes(spaceRef, file).then((snapshot) => {});
+
+    /*
+    const PathRef = ref(storage, "avatars/" + imageName);
+    const newPath = await getDownloadURL(PathRef);
+    
+    const updatedUser = await GenericService.request({
+      url: `users/updateProfilePic/${id}`,
+      method: 'patch',
+      data: {
+        newPath: newPath,
+      }
+    });
+
+    // Refresh user information
+    if (updatedUser.data.updatedUser) {
+      localStorage.removeItem("user");
+      localStorage.setItem("user", JSON.stringify(updatedUser.data.updatedUser));
+    }
+
+    */
+    // If all ok return
+    return 1;
   }
 
   async updateUsername(newUsername, id) {

@@ -27,6 +27,16 @@ export const users = {
         }
       );
     },
+    saveLogo({}, data) {
+      return UsersService.saveLogo(data.file, data.id).then(
+        response => {
+          return Promise.resolve(response)
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
     updateUsername({}, data) {
       return UsersService.updateUsername(data.newUsername, data.id).then(
         response => {

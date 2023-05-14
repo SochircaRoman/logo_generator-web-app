@@ -21,6 +21,7 @@
 
         <div class="generator__btn noselect">
           <btn-item @click="generate" btnName="Generate" class="btn"></btn-item>
+          <btn-item @click="saveLogo" btnName="Save" class="btn"></btn-item>
           <a :href="logoLink" download="generated_logo.png">
             <btn-item @click="download" btnName="Download" class="btn"></btn-item>
           </a>
@@ -51,6 +52,11 @@ export default {
       loading: false,
     }
   },
+  computed: {
+    currentUserId() {
+      return this.$store.state.auth.user._id;
+    },
+  },
   methods: {
     generate() {
       this.message = "";
@@ -79,6 +85,34 @@ export default {
     download() {
       if (this.generatedLogo) {
         this.logoLink = document.getElementById('the_canvas').toDataURL("image/png");
+      }
+    },
+    saveLogo() {
+      if (this.generatedLogo) {
+        this.loading = true;
+        this.successful = false;
+
+        this.logoLink = document.getElementById('the_canvas').toDataURL("image/png");
+
+        const blobBin = atob(this.logoLink.split(',')[1]);
+        const array = [];
+        for(let i = 0; i < blobBin.length; i++) {
+            array.push(blobBin.charCodeAt(i));
+        }
+        const Logofile = new Blob([new Uint8Array(array)], {type: 'image/png'});
+
+        this.$store.dispatch("users/saveLogo", {file: Logofile, id: this.currentUserId}).then(
+        (data) => {
+          //this.messages[3].text = data.message;
+          this.successful = true;
+          this.loading = false;
+        },
+        (error) => {
+          //this.messages[3].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+          this.successful = false;
+          this.loading = false;
+        }
+        )
       }
     }
   }
