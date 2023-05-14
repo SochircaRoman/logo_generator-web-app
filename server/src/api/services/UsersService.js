@@ -1,4 +1,5 @@
 const User = require("../../database/models/User");
+const Logo = require("../../database/models/Logo");
 
 const bcrypt = require('bcryptjs');
 
@@ -143,6 +144,31 @@ class UsersService {
       
       // If all ok return updatedUser
       return checkUpdatedUser;
+    }
+
+    async saveLogo(name, size, path, id) {
+      
+      // Check if user exist
+      const checkUser = await User.findById(id)
+      if (!checkUser) {
+        throw new Error(`User with id '${id}' not found!`);
+      }
+
+      // Save new logo
+      const newLogo = await Logo.create({ 
+        name: name,
+        size: size,
+        path: path,
+        userId: id,
+      })
+
+      // Check if new logo was saved
+      if (!newLogo) {
+        throw new Error("Logo save error")
+      }
+      
+      // If all ok return true
+      return true;
     }
 
     async deleteUser(id) {

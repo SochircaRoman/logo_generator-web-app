@@ -14,7 +14,7 @@ const LogoSchema = new mongoose.Schema({
     required: true,
   },
   userId: [
-    { type: Schema.Types.ObjectId, ref: 'User' }
+    { type: mongoose.Schema.ObjectId, ref: 'User' }
   ]
 }, { timestamps: true });
 
