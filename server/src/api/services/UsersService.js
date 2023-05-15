@@ -21,6 +21,23 @@ class UsersService {
         return allUsers;
     }
 
+    async getUserLogos(id) {
+
+      // Verify if id is valid and user exist
+      const existingUser = await User.findById(id)
+      if (!existingUser) {
+        throw new Error(`User with id '${id}' not found`);
+      }
+
+      // Get all user logos
+      const allLogos = await Logo.find({ userId: id })
+      if (!allLogos) {
+        throw new Error("No logo founded");
+      }
+    
+      return allLogos;
+    }
+
     async updateUsername(newUsername, id) {
 
         // Check if username is not identic
@@ -144,32 +161,6 @@ class UsersService {
       
       // If all ok return updatedUser
       return checkUpdatedUser;
-    }
-
-    async saveLogo(name, size, path, userId) {
-      
-      // Check if user exist
-      console.log(userId);
-      const checkUser = await User.findById(userId)
-      if (!checkUser) {
-        throw new Error(`User with id '${userId}' not found!`);
-      }
-
-      // Save new logo
-      const newLogo = await Logo.create({ 
-        name: name,
-        size: size,
-        path: path,
-        userId: userId,
-      })
-
-      // Check if new logo was saved
-      if (!newLogo) {
-        throw new Error("Logo save error")
-      }
-      
-      // If all ok return true
-      return true;
     }
 
     async deleteUser(id) {

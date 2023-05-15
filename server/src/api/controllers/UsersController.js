@@ -17,6 +17,21 @@ class UsersController{
         }
     }
 
+    async getUserLogos(request, response){
+        try{
+            // Verify if id is valid and user exist
+            const allLogos = await UsersService.getUserLogos(request.params.id)
+            if(!allLogos){
+                return response.status(404).json({ message: "Logo storage is empty!" })
+            }
+
+            // Return user information
+            return response.status(200).json({ logos: allLogos });
+        } catch(error){
+            return response.status(400).json({ message: error.message })
+        }
+    }
+
     async getUsers(request, response){
         try{
             // Get all users
@@ -114,38 +129,6 @@ class UsersController{
 
             // Send the succes response
             return response.status(200).json({ message: "Profile picture successfully updated!", updatedUser: updatedUser });
-        } catch(error){
-            // Send error response
-            return response.status(400).json({ message: error.message })
-        }
-    }
-
-    async saveLogo(request, response){
-        try{
-            // Get values
-            const { name, size, path, userId } = request.body.data;
-
-            // Check if values is present
-            if (!name || !size || !path || !userId) {
-                if (!name) {
-                    return response.status(404).json({ message: "Name is not present" })
-                } else if (!size) {
-                    return response.status(404).json({ message: "Size is not present" })
-                } else if (!path) {
-                    return response.status(404).json({ message: "Path is not present" })
-                } else {
-                    return response.status(404).json({ message: "Id is not present" })
-                }
-            }
-
-            // Save new logo
-            const savedLogo = await UsersService.saveLogo(name, size, path, userId)
-            if (!savedLogo) {
-                return response.status(400).json({ message: "Logo save error!" })
-            }
-
-            // Send the succes response
-            return response.status(200).json({ message: "Logo successfully saved!" });
         } catch(error){
             // Send error response
             return response.status(400).json({ message: error.message })

@@ -7,7 +7,7 @@ class LogosController{
             // Get logos
             const allLogos = await LogosService.getLogos()
             if(!allLogos){
-                return response.status(404).json({message: "Logo storage is empty!"})
+                return response.status(404).json({message: "No logo founded!"})
             }
 
             // Return all existing logos
