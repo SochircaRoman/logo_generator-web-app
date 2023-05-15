@@ -123,10 +123,10 @@ class UsersController{
     async saveLogo(request, response){
         try{
             // Get values
-            const { name, size, path, id } = request.body.data;
+            const { name, size, path, userId } = request.body.data;
 
             // Check if values is present
-            if (!name || !size || !path || !id) {
+            if (!name || !size || !path || !userId) {
                 if (!name) {
                     return response.status(404).json({ message: "Name is not present" })
                 } else if (!size) {
@@ -139,8 +139,8 @@ class UsersController{
             }
 
             // Save new logo
-            const savedLogo = await UsersService.saveLogo(name, size, path, id)
-            if (!updatedUser) {
+            const savedLogo = await UsersService.saveLogo(name, size, path, userId)
+            if (!savedLogo) {
                 return response.status(400).json({ message: "Logo save error!" })
             }
 

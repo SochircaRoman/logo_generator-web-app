@@ -146,12 +146,13 @@ class UsersService {
       return checkUpdatedUser;
     }
 
-    async saveLogo(name, size, path, id) {
+    async saveLogo(name, size, path, userId) {
       
       // Check if user exist
-      const checkUser = await User.findById(id)
+      console.log(userId);
+      const checkUser = await User.findById(userId)
       if (!checkUser) {
-        throw new Error(`User with id '${id}' not found!`);
+        throw new Error(`User with id '${userId}' not found!`);
       }
 
       // Save new logo
@@ -159,7 +160,7 @@ class UsersService {
         name: name,
         size: size,
         path: path,
-        userId: id,
+        userId: userId,
       })
 
       // Check if new logo was saved

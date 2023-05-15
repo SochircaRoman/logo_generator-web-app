@@ -96,35 +96,31 @@ class UserService {
     const storageRef = ref(storage);
     
     // Points to 'logos'
-    const imagesRef = ref(storageRef, 'logos');
+    const logosRef = ref(storageRef, 'logos');
 
-    // Generate a unique uuid
-    const imageName = `logo_${uuidv4()}.png`;
-    const spaceRef = ref(imagesRef, imageName);
+    // Generate a unique name for logo
+    const logoName = `logo_${uuidv4()}.png`;
+    const spaceRef = ref(logosRef, logoName);
 
-    uploadBytes(spaceRef, file).then((snapshot) => {});
+    const uploadedLogo = await uploadBytes(spaceRef, file).then((snapshot) => {});
 
-    /*
-    const PathRef = ref(storage, "avatars/" + imageName);
-    const newPath = await getDownloadURL(PathRef);
+    const logoSize = String(file.size / 1000);
+    const PathRef = ref(storage, "logos/" + logoName);
+    const logoUrl = await getDownloadURL(PathRef);
     
-    const updatedUser = await GenericService.request({
-      url: `users/updateProfilePic/${id}`,
-      method: 'patch',
+    const savedLogo = await GenericService.request({
+      url: 'users/saveLogo',
+      method: 'post',
       data: {
-        newPath: newPath,
+        name: logoName,
+        size: logoSize,
+        path: logoUrl,
+        userId: id,
       }
     });
 
-    // Refresh user information
-    if (updatedUser.data.updatedUser) {
-      localStorage.removeItem("user");
-      localStorage.setItem("user", JSON.stringify(updatedUser.data.updatedUser));
-    }
-
-    */
     // If all ok return
-    return 1;
+    return savedLogo.data;
   }
 
   async updateUsername(newUsername, id) {

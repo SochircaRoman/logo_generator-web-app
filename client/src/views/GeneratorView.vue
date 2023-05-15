@@ -100,7 +100,9 @@ export default {
             array.push(blobBin.charCodeAt(i));
         }
         const Logofile = new Blob([new Uint8Array(array)], {type: 'image/png'});
+        console.log(Logofile)
 
+        
         this.$store.dispatch("users/saveLogo", {file: Logofile, id: this.currentUserId}).then(
         (data) => {
           //this.messages[3].text = data.message;
@@ -112,7 +114,7 @@ export default {
           this.successful = false;
           this.loading = false;
         }
-        )
+        )/**/
       }
     }
   }
