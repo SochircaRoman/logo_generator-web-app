@@ -1,6 +1,6 @@
 const Logo = require("../../database/models/Logo");
 
-class UsersService {
+class LogosService {
 
     async getLogos() {
         const allLogos = await Logo.find()
@@ -39,4 +39,4 @@ class UsersService {
 
 }
 
-module.exports = new UsersService()
+module.exports = new LogosService()

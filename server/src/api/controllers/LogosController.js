@@ -51,4 +51,4 @@ class LogosController{
 
 }
 
-module.exports = new UsersController()
+module.exports = new LogosController()

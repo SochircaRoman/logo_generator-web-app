@@ -15,7 +15,6 @@ router.route('/updateUsername/:id').get(authorization.userAuth).patch(controller
 router.route('/updatePassword/:id').get(authorization.userAuth).patch(controller.updatePassword);
 router.route('/updateEmail/:id').get(authorization.userAuth).patch(controller.updateEmail);
 router.route('/updateProfilePic/:id').get(authorization.userAuth).patch(controller.updateProfilePic);
-router.route('/saveLogo').get(authorization.userAuth).post(controller.saveLogo);
 //router.route('/upload/:id').post(controller.uploadFile);
 router.route('/deleteUser/:id').get(authorization.userAuth).delete(controller.deleteUser);
 
