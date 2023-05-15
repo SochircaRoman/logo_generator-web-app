@@ -109,7 +109,7 @@ class UserService {
     const logoUrl = await getDownloadURL(PathRef);
     
     const savedLogo = await GenericService.request({
-      url: 'users/saveLogo',
+      url: 'logos/saveLogo',
       method: 'post',
       data: {
         name: logoName,
