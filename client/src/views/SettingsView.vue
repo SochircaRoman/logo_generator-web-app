@@ -298,7 +298,6 @@ export default {
 }
 
 
-
 .settings__upload-background {
   background: rgba(204, 204, 204, 0.304);
   text-align: center;

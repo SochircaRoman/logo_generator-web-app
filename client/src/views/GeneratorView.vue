@@ -27,6 +27,12 @@
           </a>
         </div>
 
+        <div class="message" v-if="message">
+          <div :class="successful ? 'message__success' : 'message__alert'">
+            {{ message }}
+          </div>
+        </div>
+
       </div>
     </section> 
       
@@ -50,6 +56,7 @@ export default {
       generatedLogo: false,
       successful: false,
       loading: false,
+      message: "",
     }
   },
   computed: {
@@ -105,16 +112,16 @@ export default {
         
         this.$store.dispatch("users/saveLogo", {file: Logofile, id: this.currentUserId}).then(
         (data) => {
-          //this.messages[3].text = data.message;
+          this.message = data.message;
           this.successful = true;
           this.loading = false;
         },
         (error) => {
-          //this.messages[3].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+          this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
           this.successful = false;
           this.loading = false;
         }
-        )/**/
+        )
       }
     }
   }
@@ -165,5 +172,20 @@ export default {
   padding-top: 50px;
   margin: 0 auto;
   width: 200px;
+}
+
+.message {
+  margin: 0 auto;
+  font-size: 20px;
+  background-color: #d1dcd88a;
+  padding: 10px;
+  max-width: 400px;
+  text-align: center;
+}
+.message__success {
+  color: #04AA6D;
+}
+.message__alert {
+  color: #f23648;
 }
 </style>
