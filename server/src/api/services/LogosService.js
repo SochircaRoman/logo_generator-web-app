@@ -1,7 +1,5 @@
 const Logo = require("../../database/models/Logo");
 
-const bcrypt = require('bcryptjs');
-
 class UsersService {
 
     async getLogos() {

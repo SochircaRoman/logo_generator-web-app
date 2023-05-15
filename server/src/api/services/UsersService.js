@@ -13,7 +13,7 @@ class UsersService {
         return existingUser;
     }
 
-    async getAllUsers() {
+    async getUsers() {
         const allUsers = await User.find()
         if (!allUsers) {
           throw new Error("No user found");
