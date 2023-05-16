@@ -18,7 +18,7 @@ router.route('/updateProfilePic/:id').get(authorization.userAuth).patch(controll
 //router.route('/upload/:id').post(controller.uploadFile);
 router.route('/deleteUser/:id').get(authorization.userAuth).delete(controller.deleteUser);
 
-router.route('/:id/logos').get(authorization.userAuth).get(controller.getUserLogos);
+router.route('/:id/logos').get(controller.getUserLogos);
 
 
 module.exports = router

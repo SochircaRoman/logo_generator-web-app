@@ -36,7 +36,7 @@ class LogosController{
             }
 
             // Save new logo
-            const savedLogo = await UsersService.saveLogo(name, size, path, userId)
+            const savedLogo = await LogosService.saveLogo(name, size, path, userId)
             if (!savedLogo) {
                 return response.status(400).json({ message: "Logo save error!" })
             }

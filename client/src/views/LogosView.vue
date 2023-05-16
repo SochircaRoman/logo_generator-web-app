@@ -13,10 +13,12 @@
 
         <div class="logos__middle">
 
-          <card-item link="/png/logo.png" description="This is a logo description" information="27.1 KB" ></card-item>
-          <card-item link="/png/logo.png" description="This is a logo description" information="27.1 KB" ></card-item>
-          <card-item link="/png/logo.png" description="This is a logo description" information="27.1 KB" ></card-item>
-          <card-item link="/png/logo.png" description="This is a logo description" information="27.1 KB" ></card-item>
+          <TransitionGroup>
+
+            <div class="card__wrapper" v-for="item in data" :key="item._id">
+              <card-item :link="item.path" :description="item.name" :information="item.size"></card-item>
+            </div>
+          </TransitionGroup>
 
         </div>
 
@@ -29,50 +31,47 @@
 
 <script>
 import CardItem from '../components/UI/CardItem.vue';
+import LoadingItem from "../components/UI/LoadingItem.vue";
 
 export default {
   components: {
     CardItem,
+    LoadingItem,
   },
   data() {
     return {
-      logoLink: null,
-      generatedLogo: false,
+      data: {},
+      message: "",
       successful: false,
       loading: false,
     }
   },
+  computed: {
+    currentUserId() {
+      return this.$store.state.auth.user._id;
+    },
+  },
+  mounted() {
+    this.getUserLogos();
+  },
   methods: {
-    generate() {
-      this.message = "";
+    getUserLogos() {
       this.loading = true;
       this.successful = false;
 
-      this.$store.dispatch("users/generateLogo").then(
+      this.$store.dispatch("users/getUserLogos", {id: this.currentUserId}).then(
         (data) => {
-          const canvas = document.getElementById("the_canvas");
-          canvas.width = data.shape[0];
-          canvas.height = data.shape[1];
-          tf.browser.toPixels(data, canvas);
-          
-          this.generatedLogo = true;
-          this.message = data.message;
+          this.data = data.data.logos
           this.successful = true;
           this.loading = false;
         },
-        (error) => {
-          this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+        () => {
           this.successful = false;
           this.loading = false;
         }
       )
     },
-    download() {
-      if (this.generatedLogo) {
-        this.logoLink = document.getElementById('the_canvas').toDataURL("image/png");
-      }
-    }
-  }
+  },
 }
 </script>
 
@@ -97,5 +96,19 @@ export default {
   font-weight: 500;
   font-size: 44px;
   line-height: 60px;
+}
+
+.card__wrapper {
+  
+}
+
+.v-enter-from {
+  opacity: 0
+}
+.v-enter-to {
+  opacity: 1
+}
+.v-enter-active {
+  transition: opacity 2s ease
 }
 </style>

@@ -34,6 +34,15 @@ class UserService {
     return content;
   }
 
+  getUserLogos(id) {
+    const content = GenericService.request({
+      url: `users/${id}/logos`,
+      method: 'get',
+      data: {},
+    });
+    return content;
+  }
+
   async uploadFile(file, id) {
 
     // Points to the root reference

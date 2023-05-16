@@ -26,7 +26,7 @@ class UsersController{
             }
 
             // Return user information
-            return response.status(200).json({ logos: allLogos });
+            return response.status(200).json({ message: "", logos: allLogos });
         } catch(error){
             return response.status(400).json({ message: error.message })
         }

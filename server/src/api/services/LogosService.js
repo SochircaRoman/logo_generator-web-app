@@ -1,4 +1,5 @@
 const Logo = require("../../database/models/Logo");
+const User = require("../../database/models/User");
 
 class LogosService {
 
@@ -14,7 +15,6 @@ class LogosService {
     async saveLogo(name, size, path, userId) {
       
       // Check if user exist
-      console.log(userId);
       const checkUser = await User.findById(userId)
       if (!checkUser) {
         throw new Error(`User with id '${userId}' not found!`);

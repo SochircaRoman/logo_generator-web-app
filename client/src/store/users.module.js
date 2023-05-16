@@ -37,6 +37,16 @@ export const users = {
         }
       );
     },
+    getUserLogos({}, data) {
+      return UsersService.getUserLogos(data.id).then(
+        response => {
+          return Promise.resolve(response)
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
     updateUsername({}, data) {
       return UsersService.updateUsername(data.newUsername, data.id).then(
         response => {

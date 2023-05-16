@@ -8,14 +8,14 @@
     </div>
 
     <div class="card__information">
-      <div class="information">Size: {{ information }}</div>
+      <div class="information">Size: {{ information }} KB</div>
     </div>
 
     <hr class="card__line">
 
     <div class="card__btns">
       <btn-item btnName="Delete" :red="true" class="btn"></btn-item>
-      <btn-item btnName="Download" class="btn"></btn-item>
+      <btn-item @click="downloadLogo" btnName="Download" class="btn"></btn-item>
     </div>
 
   </div>
@@ -29,7 +29,25 @@ export default {
   components: {
     BtnItem,
   },
+  data() {
+    return {
+      
+    }
+  },
   props: ["link", "description", "information"],
+  methods: {
+    async downloadLogo() {
+      const response = await fetch(this.link, {mode : 'no-cors'});
+      console.log(response)
+      const blob = await response.blob();
+      console.log(blob)
+      const url = URL.createObjectURL(blob);
+      console.log(url)
+
+      Object.assign(document.createElement('a'), { href: url, download: "file" }).click();
+      URL.revokeObjectURL(url);
+    },
+  },
 }
 </script>
 
@@ -37,6 +55,7 @@ export default {
 .logo__card {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  
 }
 
 .img {
