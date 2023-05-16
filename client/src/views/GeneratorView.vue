@@ -21,7 +21,7 @@
 
         <div class="generator__btn noselect">
           <btn-item @click="generate" btnName="Generate" class="btn"></btn-item>
-          <btn-item @click="saveLogo" btnName="Save" class="btn"></btn-item>
+          <btn-item v-show="loggedIn" @click="saveLogo" btnName="Save" class="btn"></btn-item>
           <a :href="logoLink" download="generated_logo.png">
             <btn-item @click="download" btnName="Download" class="btn"></btn-item>
           </a>
@@ -61,10 +61,17 @@ export default {
   },
   computed: {
     currentUserId() {
-      return this.$store.state.auth.user._id;
+      return this.$store.state.auth.initialState;
+    },
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
     },
   },
   methods: {
+    checkLogIn() {
+      const check = this.currentUserId
+      console.log(check); 
+    },
     generate() {
       this.message = "";
       this.loading = true;
