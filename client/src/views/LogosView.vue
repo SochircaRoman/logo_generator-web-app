@@ -14,11 +14,12 @@
         <div class="logos__middle">
 
           <TransitionGroup>
-
             <div class="card__wrapper" v-for="item in data" :key="item._id">
               <card-item :link="item.path" :description="item.name" :information="item.size"></card-item>
             </div>
           </TransitionGroup>
+
+          <div v-if="empty" class="empty__content">Empty ):</div>
 
         </div>
 
@@ -42,6 +43,7 @@ export default {
     return {
       data: {},
       message: "",
+      empty: false,
       successful: false,
       loading: false,
     }
@@ -62,6 +64,9 @@ export default {
       this.$store.dispatch("users/getUserLogos", {id: this.currentUserId}).then(
         (data) => {
           this.data = data.data.logos
+          if (this.data.length === 0) {
+            this.empty = true;
+          }
           this.successful = true;
           this.loading = false;
         },
@@ -89,12 +94,20 @@ export default {
   grid-gap: 20px;
 
   margin-top: 120px;
-  margin-bottom: 150px;
+  margin-bottom: 250px;
 }
 
 .logos__text {
   font-weight: 500;
   font-size: 44px;
+  line-height: 60px;
+}
+
+.empty__content {
+  text-align: center;
+  grid-column: span 3;
+  font-weight: 400;
+  font-size: 35px;
   line-height: 60px;
 }
 
