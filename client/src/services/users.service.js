@@ -101,6 +101,8 @@ class UserService {
 
   async saveLogo(file, id) {
 
+    console.log(id);
+
     // Points to the root reference
     const storageRef = ref(storage);
     

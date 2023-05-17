@@ -61,7 +61,7 @@ export default {
   },
   computed: {
     currentUserId() {
-      return this.$store.state.auth.initialState;
+      return this.$store.state.auth.user._id;
     },
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
