@@ -49,11 +49,17 @@ export default {
     }
   },
   computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
     currentUserId() {
       return this.$store.state.auth.user._id;
     },
   },
   mounted() {
+    if (!this.currentUser) {
+      this.$router.push("/login");
+    }
     this.getUserLogos();
   },
   methods: {

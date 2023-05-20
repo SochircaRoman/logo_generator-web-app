@@ -162,10 +162,13 @@ export default {
       this.previewImage = URL.createObjectURL(this.selectedFile);
     },
     updatePicture() {
-      if (this.selectedFile.type == "image/png" || this.selectedFile.type == "image/jpeg" || this.selectedFile.type == "image/jpg") {
-        this.messages[3].visible = true;
-        this.messages[3].text = "";
+      this.messages[3].visible = true;
 
+      if (this.selectedFile === null) {
+        this.messages[3].text = "No picture selected!";
+        return false
+      }
+      if (this.selectedFile.type == "image/png" || this.selectedFile.type == "image/jpeg" || this.selectedFile.type == "image/jpg") {
         this.loading = true;
         this.successful = false;
 
@@ -183,18 +186,22 @@ export default {
         }
       )
       } else {
-        this.messages[3].visible = true;
         this.messages[3].text = "Invalid image format!";
       }
     },
     updateUsername(user) {
       this.messages[0].visible = true;
-      this.messages[0].text = "";
+
+      const resultUsername = user.newUsername.trim().replace(/[^A-Z0-9]+/ig, "");
+      if (!resultUsername) {
+        this.messages[0].text = "Please enter a valid username!";
+        return false
+      }
 
       this.loading = true;
       this.successful = false;
 
-      this.$store.dispatch("users/updateUsername", {newUsername: user.newUsername, id: this.currentUserId}).then(
+      this.$store.dispatch("users/updateUsername", {newUsername: resultUsername, id: this.currentUserId}).then(
         (data) => {
           this.messages[0].text = data.message;
           this.successful = true;
@@ -210,7 +217,11 @@ export default {
     },
     updatePassword(user) {
       this.messages[1].visible = true;
-      this.messages[1].text = "";
+
+      if (!user.oldPassword.trim() && !user.newPassword.trim()) {
+        this.messages[1].text = "Please enter a valid password!";
+        return false
+      }
 
       this.loading = true;
       this.successful = false;
@@ -231,11 +242,17 @@ export default {
     },
     updateEmail(user) {
       this.messages[2].visible = true;
-      this.messages[2].text = "";
+
+      const resultEmail = user.newEmail.trim();
+      if (!resultEmail) {
+        this.messages[2].text = "Please enter a valid Email!";
+        return false
+      }
+
       this.loading = true;
       this.successful = false;
 
-      this.$store.dispatch("users/updateEmail", {newEmail: user.newEmail, id: this.currentUserId}).then(
+      this.$store.dispatch("users/updateEmail", {newEmail: resultEmail, id: this.currentUserId}).then(
         (data) => {
           this.messages[2].text = data.message;
           this.successful = true;
