@@ -73,10 +73,10 @@ export default {
   computed: {
     schema() {
       return yup.object({
-        username: yup.string().min(4).max(this.max).required("Username is required!").label("Username"),
+        username: yup.string().trim().min(4).max(this.max).required("Username is required!").label("Username"),
         email: yup.string().email().required("Email is required!").label("Email"),
-        password: yup.string().min(6).max(this.max).required("Password is required!").label("Password"),
-        confirmPassword: yup.string().required("Repeat Password!").oneOf([yup.ref("password")], "Passwords do not match")
+        password: yup.string().trim().min(6).max(this.max).required("Password is required!").label("Password"),
+        confirmPassword: yup.string().trim().required("Repeat Password!").oneOf([yup.ref("password")], "Passwords do not match")
       })
     },
     loggedIn() {
@@ -90,8 +90,15 @@ export default {
   },
   methods: {
     handleRegister(user) {
-      this.message = "";
+
+      user.username = user.username.replace(/[^A-Z0-9]+/ig, "");
+      if (!user.username || (user.username.length > 30 || user.username.length < 4)) {
+        this.message = "Please enter a valid username!";
+        return false
+      }
+
       this.loading = true;
+      this.message = "";
       this.successful = false;
 
       this.$store.dispatch("auth/register", user).then(

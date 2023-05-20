@@ -82,8 +82,8 @@ export default {
   computed: {
     schema() {
       return yup.object({
-        username: yup.string().min(4).max(this.max).required("Username is required!").label('Username'),
-        password: yup.string().min(6).max(this.max).required("Password is required!").label('Password')
+        username: yup.string().trim().min(4).max(this.max).required("Username is required!").label('Username'),
+        password: yup.string().trim().min(6).max(this.max).required("Password is required!").label('Password')
       })
     },
     loggedIn() {
@@ -97,11 +97,20 @@ export default {
   },
   methods: {
     handleLogin(user) {
+
+      user.username = user.username.replace(/[^A-Z0-9]+/ig, "");
+      if (!user.username || (user.username.length > 30 || user.username.length < 4)) {
+        this.message = "Please enter a valid username!";
+        return false
+      }
+
       this.loading = true;
+      this.successful = false;
 
       this.$store.dispatch("auth/login", user).then(
         () => {
           this.loading = false;
+          this.successful = true;
           this.loginStatus = true;
           setTimeout(() => {
             this.$router.push("/profile");
