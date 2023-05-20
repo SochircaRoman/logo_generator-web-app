@@ -4,6 +4,7 @@ import AboutView from '../views/AboutView.vue';
 import RegistrationView from '../views/RegistrationView.vue';
 import LoginView from '../views/LoginView.vue';
 import GeneratorView from '../views/GeneratorView.vue';
+import ErrorView from '../views/ErrorView.vue';
 
 // lazy-loaded
 const Profile = () => import("../views/ProfileView.vue");
@@ -41,6 +42,11 @@ const router = createRouter({
       path: '/generator',
       name: 'generator',
       component: GeneratorView
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'errorview',
+      component: ErrorView
     },
     {
       path: '/profile',
