@@ -11,6 +11,7 @@ const authorization  = require("../middlewares/AuthMiddleware");
 
 // Only Users acces
 router.route('/saveLogo').get(authorization.userAuth).post(controller.saveLogo);
+router.route('/deleteLogo/:id').get(authorization.userAuth).delete(controller.deleteLogo);
 router.route('/').get(authorization.userAuth).get(controller.getLogos);
 
 

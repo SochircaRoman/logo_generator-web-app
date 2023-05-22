@@ -37,6 +37,22 @@ class LogosService {
       return true;
     }
 
+    async deleteLogo(id) {
+
+      // Verify if id is valid and logo exist
+      const checkLogo = await Logo.findById(id)
+      if (!checkLogo) {
+        throw new Error(`Logo with id '${id}' not found`);
+      }
+
+      // Delete logo
+      const deletedLogo = await Logo.findByIdAndDelete(id)
+      if (!deletedLogo) {
+        throw new Error("Logo delete error");
+      }
+      return deletedLogo;
+    }
+
 }
 
 module.exports = new LogosService()
