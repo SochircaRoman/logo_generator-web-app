@@ -1,7 +1,7 @@
 import * as tf from '@tensorflow/tfjs';
 import {v4 as uuidv4} from 'uuid';
 import GenericService from './generic.service';
-import {storage, uploadBytes, ref, getDownloadURL} from '../firebase/init';
+import {storage, uploadBytes, ref, getDownloadURL, deleteObject} from '../firebase/init';
 
 
 //const MODEL_API = "https://us-central1-logogenerator-730da.cloudfunctions.net/app/model.json";
@@ -73,12 +73,22 @@ class LogosService {
     return savedLogo.data;
   }
 
-  async deleteLogo(id) {
+  async deleteLogo(id, logo) {
     
     const deletedLogo = await GenericService.request({
       url: `logos/deleteLogo/${id}`,
       method: 'delete',
       data: {},
+    });
+
+    // Create a reference to the file to delete
+    const logoRef = ref(storage, `logos/${logo}`);
+
+    // Delete the file
+    await deleteObject(logoRef).then(() => {
+      // File deleted successfully
+    }).catch((error) => {
+      throw new Error("Firebase delete error");
     });
 
     // If all ok return

@@ -74,8 +74,7 @@ export default {
       this.loading = true;
       this.successful = false;
 
-      console.log(this.id)
-      this.$store.dispatch("logos/deleteLogo", {id: this.id}).then(
+      this.$store.dispatch("logos/deleteLogo", {id: this.id, logo: this.description}).then(
         (data) => {
           this.message = data.message
           this.successful = true;
