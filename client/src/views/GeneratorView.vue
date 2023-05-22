@@ -20,7 +20,7 @@
         </div>
 
         <div class="generator__btn noselect">
-          <btn-item @click="generate" btnName="Generate" class="btn"></btn-item>
+          <btn-item @click="generateLogo" btnName="Generate" class="btn"></btn-item>
           <btn-item v-show="loggedIn" @click="saveLogo" btnName="Save" class="btn"></btn-item>
           <a :href="logoLink" download="generated_logo.png">
             <btn-item @click="download" btnName="Download" class="btn"></btn-item>
@@ -68,16 +68,12 @@ export default {
     },
   },
   methods: {
-    checkLogIn() {
-      const check = this.currentUserId
-      console.log(check); 
-    },
-    generate() {
+    generateLogo() {
       this.message = "";
       this.loading = true;
       this.successful = false;
 
-      this.$store.dispatch("users/generateLogo").then(
+      this.$store.dispatch("logos/generateLogo").then(
         (data) => {
           const canvas = document.getElementById("the_canvas");
           canvas.width = data.shape[0];
@@ -114,10 +110,9 @@ export default {
             array.push(blobBin.charCodeAt(i));
         }
         const Logofile = new Blob([new Uint8Array(array)], {type: 'image/png'});
-        console.log(Logofile)
 
         
-        this.$store.dispatch("users/saveLogo", {file: Logofile, id: this.currentUserId}).then(
+        this.$store.dispatch("logos/saveLogo", {file: Logofile, id: this.currentUserId}).then(
         (data) => {
           this.message = data.message;
           this.successful = true;

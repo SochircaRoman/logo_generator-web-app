@@ -15,7 +15,7 @@
 
           <TransitionGroup>
             <div class="card__wrapper" v-for="item in data" :key="item._id">
-              <card-item :link="item.path" :description="item.name" :information="item.size"></card-item>
+              <card-item :id="item._id" :link="item.path" :description="item.name" :information="item.size"></card-item>
             </div>
           </TransitionGroup>
 
@@ -67,9 +67,9 @@ export default {
       this.loading = true;
       this.successful = false;
 
-      this.$store.dispatch("users/getUserLogos", {id: this.currentUserId}).then(
+      this.$store.dispatch("logos/getUserLogos", {id: this.currentUserId}).then(
         (data) => {
-          this.data = data.data.logos
+          this.data = data.data.logos;
           if (this.data.length === 0) {
             this.empty = true;
           }

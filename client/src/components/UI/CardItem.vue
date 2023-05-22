@@ -14,7 +14,7 @@
     <hr class="card__line">
 
     <div class="card__btns">
-      <btn-item btnName="Delete" :red="true" class="btn"></btn-item>
+      <btn-item @click="deleteLogo" btnName="Delete" :red="true" class="btn"></btn-item>
       <btn-item @click="downloadLogo" btnName="Download" class="btn"></btn-item>
     </div>
 
@@ -34,7 +34,7 @@ export default {
       
     }
   },
-  props: ["link", "description", "information"],
+  props: ["id", "link", "description", "information"],
   methods: {
     async downloadLogo() {
       const response = await fetch(this.link, {mode : 'no-cors'});
@@ -47,6 +47,9 @@ export default {
       Object.assign(document.createElement('a'), { href: url, download: "file" }).click();
       URL.revokeObjectURL(url);
     },
+    deleteLogo() {
+      console.log(this.id)
+    }
   },
 }
 </script>

@@ -1,7 +1,5 @@
 import GenericService from './generic.service';
 import authHeader from './auth-header';
-import {storage, uploadBytes, ref, getDownloadURL} from '../firebase/init';
-import {v4 as uuidv4} from 'uuid';
 
 class UserService {
   getPublicContent() {
@@ -30,15 +28,6 @@ class UserService {
       method: 'get',
       data: {},
       headers: authHeader()
-    });
-    return content;
-  }
-
-  getUserLogos(id) {
-    const content = GenericService.request({
-      url: `users/${id}/logos`,
-      method: 'get',
-      data: {},
     });
     return content;
   }
@@ -97,41 +86,6 @@ class UserService {
 
     // If all ok return
     return updatedUser.data;
-  }
-
-  async saveLogo(file, id) {
-
-    console.log(id);
-
-    // Points to the root reference
-    const storageRef = ref(storage);
-    
-    // Points to 'logos'
-    const logosRef = ref(storageRef, 'logos');
-
-    // Generate a unique name for logo
-    const logoName = `logo_${uuidv4()}.png`;
-    const spaceRef = ref(logosRef, logoName);
-
-    const uploadedLogo = await uploadBytes(spaceRef, file).then((snapshot) => {});
-
-    const logoSize = String(file.size / 1000);
-    const PathRef = ref(storage, "logos/" + logoName);
-    const logoUrl = await getDownloadURL(PathRef);
-    
-    const savedLogo = await GenericService.request({
-      url: 'logos/saveLogo',
-      method: 'post',
-      data: {
-        name: logoName,
-        size: logoSize,
-        path: logoUrl,
-        userId: id,
-      }
-    });
-
-    // If all ok return
-    return savedLogo.data;
   }
 
   async updateUsername(newUsername, id) {
