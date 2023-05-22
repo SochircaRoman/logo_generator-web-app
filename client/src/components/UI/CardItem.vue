@@ -48,16 +48,27 @@ export default {
   },
   props: ["id", "link", "description", "information"],
   methods: {
-    async downloadLogo() {
-      const response = await fetch(this.link, {mode : 'no-cors'});
-      console.log(response)
-      const blob = await response.blob();
-      console.log(blob)
-      const url = URL.createObjectURL(blob);
-      console.log(url)
+    downloadLogo() {
+      this.loading = true;
+      this.successful = false;
 
-      Object.assign(document.createElement('a'), { href: url, download: "file" }).click();
-      URL.revokeObjectURL(url);
+      const xhr = new XMLHttpRequest();
+      xhr.responseType = "blob";
+      xhr.onload = () => {
+        const urlCreator = window.URL || window.webkitURL;
+        const imageUrl = urlCreator.createObjectURL(xhr.response);
+        const link = document.createElement("a");
+        link.href = imageUrl;
+        link.setAttribute("download", this.description);
+        link.setAttribute("target", "new");
+        document.body.appendChild(link);
+        link.click();
+      };
+      xhr.open("GET", this.link);
+      xhr.send();
+
+      this.successful = true;
+      this.loading = false;
     },
     deleteLogo() {
       this.loading = true;
