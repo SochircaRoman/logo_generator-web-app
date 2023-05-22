@@ -1,6 +1,8 @@
 <template>
   
   <div class="logo__card">
+
+    <loading-item v-if="loading"></loading-item>
  
     <div class="card__img-wrapper">
       <img :src="link"  alt="logo" class="img">
@@ -18,20 +20,30 @@
       <btn-item @click="downloadLogo" btnName="Download" class="btn"></btn-item>
     </div>
 
+    <div class="message" v-if="message">
+      <div :class="successful ? 'message__success' : 'message__alert'">
+        {{ message }}
+      </div>
+    </div>
+
   </div>
 
 </template>
 
 <script>
 import BtnItem from '../UI/BtnItem.vue';
+import LoadingItem from "../UI/LoadingItem.vue";
 
 export default {
   components: {
     BtnItem,
+    LoadingItem,
   },
   data() {
     return {
-      
+      successful: false,
+      loading: false,
+      message: "",
     }
   },
   props: ["id", "link", "description", "information"],
@@ -51,21 +63,20 @@ export default {
       this.loading = true;
       this.successful = false;
 
+      console.log(this.id)
       this.$store.dispatch("logos/deleteLogo", {id: this.id}).then(
         (data) => {
-          this.data = data.data.logos;
-          if (this.data.length === 0) {
-            this.empty = true;
-          }
+          this.message = data.message
           this.successful = true;
           this.loading = false;
+          setTimeout(() => {this.$router.go()}, 2000);
         },
-        () => {
+        (error) => {
+          this.message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
           this.successful = false;
           this.loading = false;
         }
       )
-      console.log(this.id)
     }
   },
 }
@@ -102,5 +113,12 @@ export default {
 
 .btn {
   margin: 0 8px 5px 8px;
+}
+
+.message__success {
+  color: #04AA6D;
+}
+.message__alert {
+  color: #f23648;
 }
 </style>

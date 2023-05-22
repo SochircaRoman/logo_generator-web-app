@@ -58,7 +58,7 @@ class LogosController{
             }
 
             // Return status 200
-            return response.status(200).json({ message: "User has been deleted", deletedLogo: deletedLogo })
+            return response.status(200).json({ message: "Logo has been deleted!" })
         } catch(error){
             return response.status(400).json({ message: error.message })
         }

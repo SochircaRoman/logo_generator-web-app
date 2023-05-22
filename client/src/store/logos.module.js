@@ -24,7 +24,7 @@ export const logos = {
       );
     },
     deleteLogo({}, data) {
-      return LogosService.saveLogo(data.id).then(
+      return LogosService.deleteLogo(data.id).then(
         response => {
           return Promise.resolve(response)
         },
