@@ -23,6 +23,16 @@ export const logos = {
         }
       );
     },
+    deleteLogo({}, data) {
+      return LogosService.saveLogo(data.id).then(
+        response => {
+          return Promise.resolve(response)
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
     getUserLogos({}, data) {
       return LogosService.getUserLogos(data.id).then(
         response => {

@@ -42,8 +42,6 @@ class LogosService {
 
   async saveLogo(file, id) {
 
-    console.log(id);
-
     // Points to the root reference
     const storageRef = ref(storage);
     
@@ -73,6 +71,18 @@ class LogosService {
 
     // If all ok return
     return savedLogo.data;
+  }
+
+  async deleteLogo(id) {
+    
+    const deletedLogo = await GenericService.request({
+      url: `logos/deleteLogo/${id}`,
+      method: 'delete',
+      data: {},
+    });
+
+    // If all ok return
+    return deletedLogo.data;
   }
 
 }

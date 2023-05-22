@@ -6,16 +6,6 @@ const user = JSON.parse(localStorage.getItem('user'));
 export const users = {
   namespaced: true,
   actions: {
-    generateLogo({}) {
-      return GeneratorService.generateLogo().then(
-        response => {
-          return Promise.resolve(response)
-        },
-        error => {
-          return Promise.reject(error);
-        }
-      );
-    },
     uploadFile({}, data) {
       return UsersService.uploadFile(data.file, data.id).then(
         response => {

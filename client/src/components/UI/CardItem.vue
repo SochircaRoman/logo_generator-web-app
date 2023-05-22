@@ -48,6 +48,23 @@ export default {
       URL.revokeObjectURL(url);
     },
     deleteLogo() {
+      this.loading = true;
+      this.successful = false;
+
+      this.$store.dispatch("logos/deleteLogo", {id: this.id}).then(
+        (data) => {
+          this.data = data.data.logos;
+          if (this.data.length === 0) {
+            this.empty = true;
+          }
+          this.successful = true;
+          this.loading = false;
+        },
+        () => {
+          this.successful = false;
+          this.loading = false;
+        }
+      )
       console.log(this.id)
     }
   },
