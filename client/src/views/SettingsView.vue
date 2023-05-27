@@ -85,7 +85,6 @@
           </Form>
 
           <div class="settings__update-container">
-            
             <div class="settings__upload-background">
               <p class="settings__upload-info">Deleting your account will permanetly remove your profile and loss all your data!</p>
               <p class="settings__upload-info">Please carefully consider the implications mentioned above before proceeding with the account deletion</p>
@@ -294,8 +293,12 @@ export default {
           this.messages[4].text = data.message;
           this.successful = true;
           this.loading = false;
-          this.$store.dispatch('auth/logout');
-          setTimeout(() => {this.$router.push('/register')}, 3000);
+          setTimeout(() => {
+            this.$store.dispatch('auth/logout').then( () => {
+              this.$router.push('/register')
+            }
+            )
+          }, 3000)
         },
         (error) => {
           this.messages[4].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
