@@ -2,6 +2,7 @@ import * as tf from '@tensorflow/tfjs';
 import {v4 as uuidv4} from 'uuid';
 import GenericService from './generic.service';
 import {storage, uploadBytes, ref, getDownloadURL, deleteObject} from '../firebase/init';
+import { logos } from '../store/logos.module';
 
 
 //const MODEL_API = "https://us-central1-logogenerator-730da.cloudfunctions.net/app/model.json";
@@ -93,6 +94,29 @@ class LogosService {
 
     // If all ok return
     return deletedLogo.data;
+  }
+
+  async deleteAllLogos(id, logos) {
+
+    const deletedLogos = await GenericService.request({
+      url: `logos/deleteAllLogos/${id}`,
+      method: 'delete',
+      data: {},
+    });
+
+    for (const logo of logos) {
+      // Create a reference to the file to delete
+      const logoRef = ref(storage, `logos/${logo}`);
+      // Delete the file
+      await deleteObject(logoRef).then(() => {
+        // File deleted successfully
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+
+    // If all ok return
+    return deletedLogos.data;
   }
 
 }

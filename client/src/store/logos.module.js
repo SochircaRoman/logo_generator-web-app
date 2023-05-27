@@ -43,6 +43,16 @@ export const logos = {
         }
       );
     },
+    deleteAllLogos({}, data) {
+      return LogosService.deleteAllLogos(data.id, data.logos).then(
+        response => {
+          return Promise.resolve(response)
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
   },
   mutations: {
     

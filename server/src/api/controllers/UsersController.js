@@ -168,7 +168,7 @@ class UsersController{
             }
             return response.status(404).json({ error: "User not been deleted" })
         } catch(error){
-            return response.status(500).json(JSON.stringify(error))
+            return response.status(500).json({ message: error.message })
         }
     }
 

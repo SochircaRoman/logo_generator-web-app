@@ -120,6 +120,7 @@ export default {
   },
   data() {
     return {
+      logos: [],
       selectedFile: null,
       previewImage: "",
 
@@ -288,17 +289,38 @@ export default {
       this.loading = true;
       this.successful = false;
 
-      this.$store.dispatch("users/deleteUser", {id: this.currentUserId}).then(
+      this.$store.dispatch("logos/getUserLogos", {id: this.currentUserId}).then(
         (data) => {
-          this.messages[4].text = data.message;
-          this.successful = true;
-          this.loading = false;
-          setTimeout(() => {
-            this.$store.dispatch('auth/logout').then( () => {
-              this.$router.push('/register')
+          for (const logo of data.data.logos) {
+            this.logos.push(logo["name"])
+          }
+          this.$store.dispatch("logos/deleteAllLogos", {id: this.currentUserId, logos: this.logos}).then(
+            (data) => {
+              this.$store.dispatch("users/deleteUser", {id: this.currentUserId}).then(
+                (data) => {
+                  this.messages[4].text = data.message;
+                  this.successful = true;
+                  this.loading = false;
+                  setTimeout(() => {
+                    this.$store.dispatch('auth/logout').then( () => {
+                      this.$router.push('/register')
+                    }
+                    )
+                  }, 3000)
+                },
+                (error) => {
+                  this.messages[4].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+                  this.successful = false;
+                  this.loading = false;
+                }
+              )
+            },
+            (error) => {
+              this.messages[4].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+              this.successful = false;
+              this.loading = false;
             }
-            )
-          }, 3000)
+          )
         },
         (error) => {
           this.messages[4].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();

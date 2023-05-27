@@ -170,15 +170,12 @@ class UsersService {
       if (!existingUser) {
         throw new Error(`User with id '${id}' not found`);
       }
-      console.log(existingUser);
 
       // Delete user account
-      /*
       const deletedUser = await User.findByIdAndDelete(id)
       if (!deletedUser) {
         throw new Error("Delete user error");
       }
-      */
       return true;
     }
 }
