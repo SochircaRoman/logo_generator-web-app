@@ -147,6 +147,9 @@ class UserService {
   }
 
   async deleteUser(id) {
+
+    
+
     const deletedUser = await GenericService.request({
       url: `users/deleteUser/${id}`,
       method: 'delete',
