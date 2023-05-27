@@ -64,6 +64,21 @@ class LogosController{
         }
     }
 
+    async deleteAllLogos(request, response){
+        try{
+            // Delete logo by user id
+            const deletedLogos = await LogosService.deleteAllLogos(request.params.id)
+            if (!deletedLogos) {
+                return response.status(404).json({message: "Logos delete error!"})
+            }
+
+            // Return status 200
+            return response.status(200).json({ message: "Logos has been deleted!" })
+        } catch(error){
+            return response.status(400).json({ message: error.message })
+        }
+    }
+
 }
 
 module.exports = new LogosController()

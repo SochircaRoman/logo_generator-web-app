@@ -53,6 +53,17 @@ class LogosService {
       return deletedLogo;
     }
 
+    async deleteAllLogos(user_id) {
+
+      // Delete logo
+      const deletedLogos = await Logo.deleteMany({ userId: { $gte: user_id } })
+      console.log(deletedLogos)
+      if (!deletedLogos) {
+        throw new Error("Logos delete error");
+      }
+      return deletedLogos;
+    }
+
 }
 
 module.exports = new LogosService()
