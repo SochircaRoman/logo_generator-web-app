@@ -45,7 +45,7 @@ export default {
       categories: [
         {
           "id": 0,
-          "type": "Category 1",
+          "type": "Example 1",
           "logos": [
             {
               "title": "logo 1",
@@ -63,7 +63,7 @@ export default {
         },
         {
           "id": 1,
-          "type": "Category 2",
+          "type": "Example 2",
           "logos": [
             {
               "title": "logo 1",
@@ -81,7 +81,7 @@ export default {
         },
         {
           "id": 2,
-          "type": "Category 3",
+          "type": "Example 3",
           "logos": [
             {
               "title": "logo 1",

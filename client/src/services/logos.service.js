@@ -9,7 +9,7 @@ const MODEL_API = "http://localhost:3000/model.json";
 
 class LogosService {
 
-  getUserLogos(id) {
+  async getUserLogos(id) {
     const content = GenericService.request({
       url: `users/${id}/logos`,
       method: 'get',
