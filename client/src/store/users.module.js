@@ -46,6 +46,16 @@ export const users = {
         }
       );
     },
+    deleteUser({}, data) {
+      return UsersService.deleteUser(data.id).then(
+        response => {
+          return Promise.resolve(response)
+        },
+        error => {
+          return Promise.reject(error);
+        }
+      );
+    },
   },
   mutations: {
     updateSuccess(state) {

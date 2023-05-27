@@ -84,6 +84,20 @@
             </div>
           </Form>
 
+          <div class="settings__update-container">
+            
+            <div class="settings__upload-background">
+              <p class="settings__upload-info">Deleting your account will permanetly remove your profile and loss all your data!</p>
+              <p class="settings__upload-info">Please carefully consider the implications mentioned above before proceeding with the account deletion</p>
+            </div>
+            <btn-item @click="deleteUser" btnName="Delete Account" :red="true" class="settings__update-btn"></btn-item>
+            <div class="message" v-if="messages[4].visible">
+              <div :class="successful ? 'message__success' : 'message__alert'">
+                {{ messages[4].text }}
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -113,6 +127,10 @@ export default {
       successful: false,
       loading: false,
       messages: [
+        {
+          visible: false,
+          text: "",
+        },
         {
           visible: false,
           text: "",
@@ -261,6 +279,26 @@ export default {
         },
         (error) => {
           this.messages[2].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+          this.successful = false;
+          this.loading = false;
+        }
+      )
+    },
+    deleteUser() {
+      this.messages[4].visible = true;
+      this.loading = true;
+      this.successful = false;
+
+      this.$store.dispatch("users/deleteUser", {id: this.currentUserId}).then(
+        (data) => {
+          this.messages[4].text = data.message;
+          this.successful = true;
+          this.loading = false;
+          this.$store.dispatch('auth/logout');
+          setTimeout(() => {this.$router.push('/register')}, 3000);
+        },
+        (error) => {
+          this.messages[4].text = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
           this.successful = false;
           this.loading = false;
         }

@@ -145,6 +145,17 @@ class UserService {
     // If all ok return
     return updatedUser.data;
   }
+
+  async deleteUser(id) {
+    const deletedUser = await GenericService.request({
+      url: `users/deleteUser/${id}`,
+      method: 'delete',
+      data: {}
+    });
+
+    // If all ok return
+    return deletedUser.data;
+  }
   
 
 }
