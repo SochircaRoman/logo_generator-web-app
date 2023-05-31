@@ -87,6 +87,10 @@ export default {
 </script>
 
 <style>
+.wrapper {
+  max-width: 950px;
+}
+
 .logos__top {
   text-align: center;
   margin-top: 100px;
@@ -96,9 +100,7 @@ export default {
 .logos__middle {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
   grid-gap: 20px;
-
   margin-top: 120px;
   margin-bottom: 250px;
 }

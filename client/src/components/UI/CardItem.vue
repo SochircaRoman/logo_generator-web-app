@@ -94,9 +94,9 @@ export default {
 
 <style>
 .logo__card {
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px gray;
+  padding: 1px;
 }
 
 .img {
@@ -119,6 +119,11 @@ export default {
 
 .img__description {
   font-style: italic;
+}
+
+.card__btns {
+  display: flex;
+  justify-content: space-around;
 }
 
 .btn {
