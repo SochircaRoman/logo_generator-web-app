@@ -1,4 +1,5 @@
 const AuthService = require('../services/AuthService');
+const MailService = require('../services/MailService');
 
 class AuthController{
 
@@ -60,6 +61,29 @@ class AuthController{
         return response.status(400).json({ message: error.message });
     }
   }
+
+  async activateAccount(request, response){
+        try{
+            // Get the link
+            const activationLink = request.params.link
+            console.log(activationLink)
+
+            // Check if is present
+            if (!activationLink) {
+                return response.status(400).json({ message: "Account activation error" })
+            }
+
+            const activatedUser = await MailService.activateAccount(activationLink)
+            if (!activatedUser) {
+                return response.status(400).json({ message: "Account activation error" })
+            }
+
+            // Redirect to client url
+            return response.redirect("https://logogenerator-730da.web.app/login")
+        } catch(error){
+            return response.status(400).json({ message: error.message });
+        }
+    }
 }
 
 module.exports = new AuthController()

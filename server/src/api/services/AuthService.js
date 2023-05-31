@@ -1,4 +1,5 @@
 const User = require("../../database/models/User");
+const MailService = require('../services/MailService');
 
 const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
@@ -43,6 +44,12 @@ class AuthService {
         // Check if new user was created
         if (!newUser) {
           throw new Error("User create error")
+        }
+
+        // Send activation mail
+        const sendedLink = await MailService.sendActivationMail(email, `https://us-central1-logogenerator-730da.cloudfunctions.net/app/api/auth/activateAccount/${activationLink}`)
+        if (!sendedLink) {
+            throw new Error("Activation link send error")
         }
 
         // If all ok return new user

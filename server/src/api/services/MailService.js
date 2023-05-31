@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const User = require("../../database/models/User");
 
 class MailService {
 
@@ -12,6 +13,23 @@ class MailService {
                 pass: process.env.SMTP_PASSWORD
             }
         })
+    }
+
+    async activateAccount(activationLink) {
+
+        // Check if user exist
+        const existingUser = await User.findOne({ activationLink: activationLink })
+        if (!existingUser) {
+          throw new Error(`User no exist!`);
+        }
+
+        existingUser.isActivated = true
+        const savedUser = await existingUser.save()
+        if (!savedUser) {
+          throw new Error(`User save error!`);
+        }
+        
+        return true
     }
 
     async sendActivationMail(to, link) {
