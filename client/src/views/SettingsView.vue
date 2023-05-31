@@ -7,6 +7,7 @@
         <div class="settings__content-container">
 
           <loading-item v-if="loading"></loading-item>
+          <ask-item v-if="deleteConfirmation"></ask-item>
           
           <div class="settings__info">
             <h1 class="settings__title">Edit Profile</h1>
@@ -109,6 +110,7 @@
 import BtnItem from "../components/UI/BtnItem.vue";
 import LoadingItem from "../components/UI/LoadingItem.vue";
 import InputItem from "../components/UI/InputItem.vue";
+import AskItem from "../components/UI/AskItem.vue";
 import { Form } from "vee-validate";
 import * as yup from "yup";
 export default {
@@ -117,6 +119,7 @@ export default {
     LoadingItem,
     InputItem,
     Form,
+    AskItem,
   },
   data() {
     return {
@@ -124,7 +127,7 @@ export default {
       selectedFile: null,
       previewImage: "",
 
-      deleteConfirmation: false,
+      deleteConfirmation: true,
       successful: false,
       loading: false,
       messages: [
@@ -286,17 +289,18 @@ export default {
       )
     },
     deleteConfirm() {
-      if (!this.deleteConfirm) {
-        
-      }
+      this.deleteConfirm = true;
     },
     deleteUser() {
+
+      this.deleteConfirm()
+/*
       this.messages[4].visible = true;
       this.loading = true;
       this.successful = false;
 
 
-
+      
       this.$store.dispatch("logos/getUserLogos", {id: this.currentUserId}).then(
         (data) => {
           for (const logo of data.data.logos) {
@@ -335,7 +339,7 @@ export default {
           this.successful = false;
           this.loading = false;
         }
-      )
+      )*/
     }
   },
   mounted () {
