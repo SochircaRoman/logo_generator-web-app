@@ -7,7 +7,10 @@
         <div class="settings__content-container">
 
           <loading-item v-if="loading"></loading-item>
-          <ask-item v-if="deleteConfirmation"></ask-item>
+          <ask-item v-if="askVisible">
+            <button @click="cancelBtn()" class="popup__btn positive noselect">Cancel</button>
+            <button @click="deleteUser()" class="popup__btn negative noselect">Delete</button>
+          </ask-item>
           
           <div class="settings__info">
             <h1 class="settings__title">Edit Profile</h1>
@@ -90,7 +93,7 @@
               <p class="settings__upload-info">Deleting your account will permanetly remove your profile and loss all your data!</p>
               <p class="settings__upload-info">Please carefully consider the implications mentioned above before proceeding with the account deletion</p>
             </div>
-            <btn-item @click="deleteUser" btnName="Delete Account" :red="true" class="settings__update-btn"></btn-item>
+            <btn-item @click="confirmAction()" btnName="Delete Account" :red="true" class="settings__update-btn"></btn-item>
             <div class="message" v-if="messages[4].visible">
               <div :class="successful ? 'message__success' : 'message__alert'">
                 {{ messages[4].text }}
@@ -127,7 +130,7 @@ export default {
       selectedFile: null,
       previewImage: "",
 
-      deleteConfirmation: true,
+      askVisible: false,
       successful: false,
       loading: false,
       messages: [
@@ -288,18 +291,17 @@ export default {
         }
       )
     },
-    deleteConfirm() {
-      this.deleteConfirm = true;
+    confirmAction() {
+      this.askVisible = true;
+    },
+    cancelBtn() {
+      this.askVisible = false;
     },
     deleteUser() {
-
-      this.deleteConfirm()
-/*
+      this.askVisible = false;
       this.messages[4].visible = true;
       this.loading = true;
       this.successful = false;
-
-
       
       this.$store.dispatch("logos/getUserLogos", {id: this.currentUserId}).then(
         (data) => {
@@ -339,7 +341,7 @@ export default {
           this.successful = false;
           this.loading = false;
         }
-      )*/
+      )
     }
   },
   mounted () {

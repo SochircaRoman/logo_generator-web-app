@@ -6,8 +6,7 @@
         <p class="text">Are you sure to delete your account? This will permanetly delete all your data.</p>
       </div>
       <div class="popup__content-btns">
-        <button class="popup__btn positive">Cancel</button>
-        <button class="popup__btn negative">Delete</button>
+        <slot></slot>
       </div>
     </div>
   </div>
@@ -25,7 +24,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color:aliceblue;
+  background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%; 
   z-index: 10;
@@ -68,7 +67,7 @@
 .popup__content {
   background-color: white;
   margin: 0 auto;
-  margin-top: 20%;
+  margin-top: 15%;
   max-width: 400px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px gray;
