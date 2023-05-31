@@ -124,6 +124,7 @@ export default {
       selectedFile: null,
       previewImage: "",
 
+      deleteConfirmation: false,
       successful: false,
       loading: false,
       messages: [
@@ -284,10 +285,17 @@ export default {
         }
       )
     },
+    deleteConfirm() {
+      if (!this.deleteConfirm) {
+        
+      }
+    },
     deleteUser() {
       this.messages[4].visible = true;
       this.loading = true;
       this.successful = false;
+
+
 
       this.$store.dispatch("logos/getUserLogos", {id: this.currentUserId}).then(
         (data) => {
