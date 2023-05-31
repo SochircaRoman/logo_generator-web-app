@@ -4,12 +4,13 @@
     <div class="top">
       <div class="top__content">
         <img src="/png/succes.png" alt="SUCCES">
-        <h3 v-if="text" class="top__text"> {{ text }}</h3>
+        <h3 v-if="text" class="top__text"> {{ title }}</h3>
         <h3 v-else class="top__text">Succes!</h3>
       </div>
     </div>
     <div class="bottom">
-      <p class="bottom__text">Please wait while redirecting...</p>
+      <p class="bottom__text">{{ text }}</p>
+      <slot></slot>
     </div>
   </div>
 
@@ -18,14 +19,14 @@
 <script>
 
 export default {
-  props: ["text"]
+  props: ["title", "text"]
 }
 </script>
 
 <style>
 .container {
   margin: 0 auto;
-  margin-top: 35%;
+  margin-top: 20%;
   width: 300px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px gray;

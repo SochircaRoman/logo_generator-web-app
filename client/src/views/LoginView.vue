@@ -7,7 +7,7 @@
         <loading-item v-if="loading"></loading-item>
 
         <div v-if="loginStatus" class="succes_popup">
-          <succes-item text="Succes Login!"></succes-item>
+          <succes-item title="Succes Login!" text="Please wait while redirecting..."></succes-item>
         </div>
 
         <Form v-else @submit="handleLogin" :validation-schema="schema">
@@ -139,7 +139,8 @@ export default {
 
 .succes_popup {
   margin: 0 auto;
-  margin-top: 15%;
+  margin-top: 35%;
+  margin-bottom: 300px;
 }
 
 .login__title {

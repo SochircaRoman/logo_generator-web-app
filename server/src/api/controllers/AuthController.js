@@ -66,7 +66,6 @@ class AuthController{
         try{
             // Get the link
             const activationLink = request.params.link
-            console.log(activationLink)
 
             // Check if is present
             if (!activationLink) {
