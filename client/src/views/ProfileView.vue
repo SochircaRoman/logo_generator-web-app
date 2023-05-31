@@ -59,7 +59,7 @@ export default {
       },
       {
         id: 5,
-        name: "Link Activation",
+        name: "Account Activated",
         dbName: "isActivated"
       },
       {

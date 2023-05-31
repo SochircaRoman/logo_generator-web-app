@@ -78,7 +78,7 @@ class AuthController{
             }
 
             // Redirect to client url
-            return response.redirect("https://logogenerator-730da.web.app/login")
+            return response.redirect("https://logogenerator-730da.web.app/activation")
         } catch(error){
             return response.status(400).json({ message: error.message });
         }

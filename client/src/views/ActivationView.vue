@@ -4,20 +4,20 @@
     <section class="activation__content">
       <div class="wrapper">
 
-        <succes-item v-if="currentUser['isActivated']" title="Succes Activation!" text="Your account has been successfully activated">
+        <div v-if="currentUser['isActivated'] === false" class="activation__content-information">
+          <h2 class="information__text">Please activate your account via the link sent to your email address: <strong class="bold">{{ currentUser['email'] }}</strong></h2>
+          <router-link to="/home" class="noselect">
+            <btn-item class="information__btn" btnName="Back to home"></btn-item>
+          </router-link>
+        </div>
+
+        <succes-item v-else title="Succes Activation!" text="Your account has been successfully activated">
           <div class="activation__content-btn">
             <router-link to="/login" class="noselect">
               <btn-item btnName="To login"></btn-item>
             </router-link>
           </div>
         </succes-item>
-
-        <div class="activation__content-information">
-          <h2 class="information__text">Please activate your account via the link sent to your email address: <strong class="bold">{{ currentUser['email'] }}</strong></h2>
-          <router-link to="/home" class="noselect">
-            <btn-item class="information__btn" btnName="Back to home"></btn-item>
-          </router-link>
-        </div>
 
       </div>
     </section>
@@ -36,6 +36,9 @@ export default {
   },
   computed: {
     currentUser() {
+      if (this.$store.state.auth.user === null) {
+        return false
+      }
       return this.$store.state.auth.user;
     },
   },
