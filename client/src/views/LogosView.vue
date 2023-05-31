@@ -23,6 +23,14 @@
 
         </div>
 
+        <div class="logos__down">
+          <div class="logos__btn">
+            <router-link to="/generator" class="">
+              <btn-item btnName="Generate logo"></btn-item>
+            </router-link>
+          </div>
+        </div>
+
       </div> 
     </section>  
 
@@ -33,11 +41,13 @@
 <script>
 import CardItem from '../components/UI/CardItem.vue';
 import LoadingItem from "../components/UI/LoadingItem.vue";
+import BtnItem from '../components/UI/BtnItem.vue';
 
 export default {
   components: {
     CardItem,
     LoadingItem,
+    BtnItem,
   },
   data() {
     return {
@@ -102,7 +112,11 @@ export default {
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
   margin-top: 120px;
-  margin-bottom: 250px;
+  margin-bottom: 80px;
+}
+
+.logos__down {
+  margin-bottom: 100px;
 }
 
 .logos__text {
@@ -117,6 +131,12 @@ export default {
   font-weight: 400;
   font-size: 35px;
   line-height: 60px;
+}
+
+.logos__btn {
+  padding-top: 50px;
+  margin: 0 auto;
+  width: 200px;
 }
 
 .card__wrapper {
